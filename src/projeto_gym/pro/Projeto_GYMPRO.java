@@ -26,7 +26,7 @@ public class Projeto_GYMPRO {
     public static void main(String[] args) {
         
         Fachada.getInstance().atualizarParcelasAtrasadas();
-        app.Util.atualizarMensalidades();
+        projeto_gym.pro.Util.atualizarMensalidades();
         LoginJFrame login = new LoginJFrame();
         login.setVisible(true);
         new LoginControlador(login);

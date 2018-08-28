@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app;
+package projeto_gym.pro;
 
 import fachada.Fachada;
 import java.awt.Component;

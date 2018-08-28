@@ -5,7 +5,7 @@
  */
 package business;
 
-import app.Util;
+import projeto_gym.pro.Util;
 import dao.ParcelasDao;
 import fachada.Fachada;
 import java.sql.Date;

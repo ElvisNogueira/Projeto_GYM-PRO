@@ -6,7 +6,7 @@
 package view;
 
 import projeto_gym.pro.Projeto_GYMPRO;
-import app.Util;
+import projeto_gym.pro.Util;
 import java.sql.Date;
 import model.Aluno;
 import model.ControleFinanceiro;

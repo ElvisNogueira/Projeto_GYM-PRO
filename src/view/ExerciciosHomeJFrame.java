@@ -5,7 +5,7 @@
  */
 package view;
 
-import app.Util;
+import projeto_gym.pro.Util;
 import fachada.Fachada;
 import java.util.ArrayList;
 import javax.swing.JPanel;

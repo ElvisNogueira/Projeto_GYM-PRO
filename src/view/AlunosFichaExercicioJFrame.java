@@ -5,9 +5,9 @@
  */
 package view;
 
-import app.ComparadorFichaExercicio;
+import projeto_gym.pro.ComparadorFichaExercicio;
 import projeto_gym.pro.Projeto_GYMPRO;
-import app.Util;
+import projeto_gym.pro.Util;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

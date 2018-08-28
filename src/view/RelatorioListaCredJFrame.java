@@ -5,7 +5,7 @@
  */
 package view;
 
-import app.Util;
+import projeto_gym.pro.Util;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
