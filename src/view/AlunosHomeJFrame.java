@@ -155,14 +155,14 @@ public class AlunosHomeJFrame extends javax.swing.JFrame {
             .addGroup(jPanelBackLayout.createSequentialGroup()
                 .addContainerGap(126, Short.MAX_VALUE)
                 .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelBackLayout.createSequentialGroup()
                             .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelProcurar)
                                 .addComponent(jTextFieldProsucar, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
-                            .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBackLayout.createSequentialGroup()
                             .addComponent(jButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(43, 43, 43)
@@ -293,7 +293,7 @@ public class AlunosHomeJFrame extends javax.swing.JFrame {
         jTableAlunos.setModel(modeloTabela);      
         jTableAlunos.getColumnModel().getColumn(0).setPreferredWidth(40);
         jTableAlunos.getColumnModel().getColumn(0).setResizable(false);
-        jTableAlunos.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTableAlunos.getColumnModel().getColumn(1).setPreferredWidth(405);
         jTableAlunos.getColumnModel().getColumn(1).setResizable(false);
         jTableAlunos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }

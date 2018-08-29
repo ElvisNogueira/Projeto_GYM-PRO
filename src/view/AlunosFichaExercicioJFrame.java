@@ -1068,7 +1068,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_importarMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        // TODO add your handling code here:
+        new VisualizarFichaTreino(seg,ter,qua,qui,sex,sab,dom).show();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void excluirExercicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirExercicioMouseClicked
