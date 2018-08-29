@@ -314,9 +314,10 @@ public class RelatorioFluxoCaixaJFrame extends javax.swing.JFrame {
 
     public void gerarPDF(ArrayList<ControleFinanceiro> financeiro){
         Document doc = new Document();
+        String end = "";
         try {
-            
-            PdfWriter.getInstance(doc, new FileOutputStream("Relatorio do Fluxo do caixa.pdf"));
+            end = AlunosFichaExercicioJFrame.salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio do Fluxo do caixa.pdf"));
             
             Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
             Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
@@ -355,7 +356,7 @@ public class RelatorioFluxoCaixaJFrame extends javax.swing.JFrame {
         }
         
         try {
-            Desktop.getDesktop().open(new File("Relatorio do Fluxo do caixa.pdf"));
+            Desktop.getDesktop().open(new File(end+"/Relatorio do Fluxo do caixa.pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

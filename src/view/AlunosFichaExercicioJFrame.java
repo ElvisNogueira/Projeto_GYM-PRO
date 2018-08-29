@@ -14,15 +14,18 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import fachada.Fachada;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,6 +34,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -452,9 +458,17 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 "Exercício", "Série", "Rep.", "Obs."
             }
         ));
+        segundajTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                segundajTableMouseMoved(evt);
+            }
+        });
         segundajTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 segundajTableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                segundajTableMouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(segundajTable);
@@ -478,6 +492,11 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 "Exercício", "Série", "Rep.", "Obs."
             }
         ));
+        tercajTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                tercajTableMouseMoved(evt);
+            }
+        });
         tercajTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tercajTableMouseClicked(evt);
@@ -496,6 +515,11 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 "Exercício", "Série", "Rep.", "Obs."
             }
         ));
+        quajTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                quajTableMouseMoved(evt);
+            }
+        });
         quajTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 quajTableMouseClicked(evt);
@@ -1063,7 +1087,66 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
         
         preencherTabelas();
     }//GEN-LAST:event_excluirExercicioMouseClicked
-   
+
+    private void segundajTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_segundajTableMouseEntered
+    }//GEN-LAST:event_segundajTableMouseEntered
+
+    private void segundajTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_segundajTableMouseMoved
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = segundajTable.rowAtPoint(p);
+        int colIndex = segundajTable.columnAtPoint(p);
+        String texto = segundajTable.getValueAt(rowIndex, colIndex)+"";
+        segundajTable.setToolTipText(texto);
+    }//GEN-LAST:event_segundajTableMouseMoved
+
+    private void tercajTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tercajTableMouseMoved
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = tercajTable.rowAtPoint(p);
+        int colIndex = tercajTable.columnAtPoint(p);
+        String texto = tercajTable.getValueAt(rowIndex, colIndex)+"";
+        tercajTable.setToolTipText(texto);
+    }//GEN-LAST:event_tercajTableMouseMoved
+
+    private void quajTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quajTableMouseMoved
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = quajTable.rowAtPoint(p);
+        int colIndex = quajTable.columnAtPoint(p);
+        String texto = quajTable.getValueAt(rowIndex, colIndex)+"";
+        quajTable.setToolTipText(texto);
+    }//GEN-LAST:event_quajTableMouseMoved
+    
+    private void quijTableMouseMoved(java.awt.event.MouseEvent evt) {                                     
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = quijTable.rowAtPoint(p);
+        int colIndex = quijTable.columnAtPoint(p);
+        String texto = quijTable.getValueAt(rowIndex, colIndex)+"";
+        quijTable.setToolTipText(texto);
+    }
+    
+    private void sexjTableMouseMoved(java.awt.event.MouseEvent evt) {                                     
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = sexjTable.rowAtPoint(p);
+        int colIndex = sexjTable.columnAtPoint(p);
+        String texto = sexjTable.getValueAt(rowIndex, colIndex)+"";
+        sexjTable.setToolTipText(texto);
+    }
+    
+    private void sabjTableMouseMoved(java.awt.event.MouseEvent evt) {                                     
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = sabjTable.rowAtPoint(p);
+        int colIndex = sabjTable.columnAtPoint(p);
+        String texto = sabjTable.getValueAt(rowIndex, colIndex)+"";
+        sabjTable.setToolTipText(texto);
+    }
+    
+    private void domjTableMouseMoved(java.awt.event.MouseEvent evt) {                                     
+        java.awt.Point p = evt.getPoint();
+        int rowIndex = domjTable.rowAtPoint(p);
+        int colIndex = domjTable.columnAtPoint(p);
+        String texto = domjTable.getValueAt(rowIndex, colIndex)+"";
+        domjTable.setToolTipText(texto);
+    }
+    
     private void domjTableMouseClicked(java.awt.event.MouseEvent evt) {                                       
         if(!jTextField1.getText().isEmpty()){
             FichaExercicio fAux = new FichaExercicio();
@@ -1646,17 +1729,26 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     
     public void gerarPDF(){
         Document doc = new Document();
-         try {
-            
-            PdfWriter.getInstance(doc, new FileOutputStream("Ficha de treino "+ficha.getAluno().getNome()+
+        String end="";
+        try {
+            File file = new File("Ficha de treino "+ficha.getAluno().getNome()+
+                    " nº"+ficha.getId()+".pdf");
+            end = salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Ficha de treino "+ficha.getAluno().getNome()+
                     " nº"+ficha.getId()+".pdf"));
             doc.setPageSize(PageSize.A4.rotate());
             Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
             Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.WHITE);
             
-            PdfPTable tabela = new PdfPTable(3);
-            PdfPTable tabela2 = new PdfPTable(2);
-            PdfPTable tabela3 = new PdfPTable(2);
+            PdfPTable tabela = new PdfPTable(1);
+            PdfPTable tabela2 = new PdfPTable(1);
+            PdfPTable tabela3 = new PdfPTable(1);
+            PdfPTable tabela4 = new PdfPTable(1);
+            PdfPTable tabela5 = new PdfPTable(1);
+            PdfPTable tabela6 = new PdfPTable(1);
+            PdfPTable tabela7 = new PdfPTable(1);
+            
             PdfPTable segunda = new PdfPTable(4);
             PdfPTable terca = new PdfPTable(4);
             PdfPTable quarta = new PdfPTable(4);
@@ -1748,46 +1840,58 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 domingo.addCell(new Paragraph(""+a.getRepeticoes(), fontTexto));
                 domingo.addCell(new Paragraph(""+a.getObs(), fontTexto));
             }
+            PdfPCell header = new PdfPCell(new Paragraph("Segunda",fontHeader));
+            header.setColspan(1);
+            PdfPCell header2 = new PdfPCell(new Paragraph("Terça",fontHeader));
+            header2.setColspan(1);
+            PdfPCell header3 = new PdfPCell(new Paragraph("Quarta",fontHeader));
+            header3.setColspan(1);
+            PdfPCell header4 = new PdfPCell(new Paragraph("Quinta",fontHeader));
+            header4.setColspan(1);
+            PdfPCell header5 = new PdfPCell(new Paragraph("Sexta",fontHeader));
+            header5.setColspan(1);
+            PdfPCell header6 = new PdfPCell(new Paragraph("Sabado",fontHeader));
+            header6.setColspan(1);
+            PdfPCell header7 = new PdfPCell(new Paragraph("Domingo",fontHeader));
+            header7.setColspan(1);
             
-            tabela.addCell("Segunda");
-            tabela.addCell("Terça");
-            tabela.addCell("Quarta");
-            tabela2.addCell("Quinta");
-            tabela2.addCell("Sexta");
-            tabela3.addCell("Sabado");
-            tabela3.addCell("Domingo");
+            header.setBackgroundColor(BaseColor.BLACK);
+            header2.setBackgroundColor(BaseColor.BLACK);
+            header3.setBackgroundColor(BaseColor.BLACK);
+            header4.setBackgroundColor(BaseColor.BLACK);
+            header5.setBackgroundColor(BaseColor.BLACK);
+            header6.setBackgroundColor(BaseColor.BLACK);
+            header7.setBackgroundColor(BaseColor.BLACK);
+            
+            
+            tabela.addCell(header);
+            tabela2.addCell(header2);
+            tabela3.addCell(header3);
+            tabela4.addCell(header4);
+            tabela5.addCell(header5);
+            tabela6.addCell(header6);
+            tabela7.addCell(header7);
             
             
             tabela.addCell(segunda);
-            tabela.addCell(terca);
-            tabela.addCell(quarta);
-            tabela2.addCell(quinta);
-            tabela2.addCell(sexta);
-            tabela3.addCell(sabado);
-            tabela3.addCell(domingo);
-            
+            tabela2.addCell(terca);
+            tabela3.addCell(quarta);
+            tabela4.addCell(quinta);
+            tabela5.addCell(sexta);
+            tabela6.addCell(sabado);
+            tabela7.addCell(domingo);
             
             doc.open();            
             doc.add(new Paragraph(Util.getDatasRel(new java.util.Date()),fontTexto));
             doc.add(new Paragraph("GYM - Ficha de Treino "+ficha.getAluno().getNome()+
             " nº"+ficha.getId()+"\n\n",fontCab));
-//            doc.add(new Paragraph("\n          Segunda\n\n",fontTexto));
-//            doc.add(segunda);
-//            doc.add(new Paragraph("\n          Terça\n\n",fontTexto));
-//            doc.add(terca);
-//            doc.add(new Paragraph("\n          Quarta\n\n",fontTexto));
-//            doc.add(quarta);
-//            doc.add(new Paragraph("\n          Quinta\n\n",fontTexto));
-//            doc.add(quinta);
-//            doc.add(new Paragraph("\n          Sexta\n\n",fontTexto));
-//            doc.add(sexta);
-//            doc.add(new Paragraph("\n          Sabado\n\n",fontTexto));
-//            doc.add(sabado);
-//            doc.add(new Paragraph("\n          Domingo\n\n\n",fontTexto));
-//            doc.add(domingo);
             doc.add(tabela);
             doc.add(tabela2);
             doc.add(tabela3);
+            doc.add(tabela4);
+            doc.add(tabela5);
+            doc.add(tabela6);
+            doc.add(tabela7);
         } catch (FileNotFoundException | DocumentException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -1795,12 +1899,26 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
         }
         
         try {
-            Desktop.getDesktop().open(new File("Ficha de treino "+ficha.getAluno().getNome()+
+            Desktop.getDesktop().open(new File(end+"/Ficha de treino "+ficha.getAluno().getNome()+
                     " nº"+ficha.getId()+".pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public static String salvarcomo(JFrame tela) {
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            chooser.showOpenDialog(tela);
+            File file = chooser.getSelectedFile();
+
+            String l = file.getAbsolutePath();
+            
+            return l;
+        } catch (Exception x) {}
+        return null;
     }
 
     public JPanel getjPaneTreino() {

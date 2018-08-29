@@ -192,10 +192,11 @@ public class RelatorioListaAluJFrame extends javax.swing.JFrame {
 
     public void gerarPDF(ArrayList<Aluno> alunos){
         Document doc = new Document();
+        String end = "";;
          try {
             ArrayList<Aluno> alunoslista = new ArrayList<>();
-            
-            PdfWriter.getInstance(doc, new FileOutputStream("Relatorio de Alunos.pdf"));
+            end = AlunosFichaExercicioJFrame.salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio de Alunos.pdf"));
             
             Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
             Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
@@ -232,7 +233,7 @@ public class RelatorioListaAluJFrame extends javax.swing.JFrame {
         }
         
         try {
-            Desktop.getDesktop().open(new File("Relatorio de Alunos.pdf"));
+            Desktop.getDesktop().open(new File(end+"/Relatorio de Alunos.pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

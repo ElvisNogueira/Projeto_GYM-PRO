@@ -184,9 +184,10 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
     
     public void gerarPDF(ArrayList<Parcelas>parc){
         Document doc = new Document();
+        String end = "";
         try {
-            
-            PdfWriter.getInstance(doc, new FileOutputStream("Relatorio de Alunos com plano a vencer.pdf"));
+            end = AlunosFichaExercicioJFrame.salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio de Alunos com plano a vencer.pdf"));
             
             Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
             Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
@@ -217,7 +218,7 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
         }
         
         try {
-            Desktop.getDesktop().open(new File("Relatorio de Alunos com plano a vencer.pdf"));
+            Desktop.getDesktop().open(new File(end+"/Relatorio de Alunos com plano a vencer.pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

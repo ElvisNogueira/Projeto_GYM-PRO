@@ -977,7 +977,9 @@
                                 </Property>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="segundajTableMouseMoved"/>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="segundajTableMouseClicked"/>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="segundajTableMouseEntered"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -1050,6 +1052,7 @@
                                 </Property>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="tercajTableMouseMoved"/>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tercajTableMouseClicked"/>
                               </Events>
                             </Component>
@@ -1101,6 +1104,7 @@
                                 </Property>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="quajTableMouseMoved"/>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="quajTableMouseClicked"/>
                               </Events>
                             </Component>

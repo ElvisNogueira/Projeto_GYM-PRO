@@ -192,9 +192,10 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
     
     public void gerarPDF(ArrayList<Parcelas> parcelas){
         Document doc = new Document();
+        String end = "";
         try {
-            
-            PdfWriter.getInstance(doc, new FileOutputStream("Relatorio de Parcelas em debito.pdf"));
+            end = AlunosFichaExercicioJFrame.salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio de Parcelas em debito.pdf"));
             
             Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
             Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
@@ -229,7 +230,7 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
         }
         
         try {
-            Desktop.getDesktop().open(new File("Relatorio de Parcelas em debito.pdf"));
+            Desktop.getDesktop().open(new File(end+"/Relatorio de Parcelas em debito.pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
