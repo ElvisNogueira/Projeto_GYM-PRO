@@ -5,9 +5,11 @@
  */
 package view;
 
+import java.awt.Color;
 import projeto_gym.pro.Projeto_GYMPRO;
 import projeto_gym.pro.Util;
 import java.sql.Date;
+import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.ControleFinanceiro;
 import model.Funcionario;
@@ -299,12 +301,27 @@ public class AlunosLancarFaturaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void jButtonLancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLancarActionPerformed
-       p = get();
-       projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarPagamento(p);
-       projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarControleFinanceiro(c);
-       if(jComboBoxServico.getSelectedItem().equals("Mensalidade"))
-           projeto_gym.pro.Projeto_GYMPRO.fachada.pagarParcela(aluno, p.getDataVenc());
-       this.dispose();
+        try {
+            p = get();
+            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarPagamento(p);
+            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarControleFinanceiro(c);
+            if(jComboBoxServico.getSelectedItem().equals("Mensalidade"))
+                projeto_gym.pro.Projeto_GYMPRO.fachada.pagarParcela(aluno, p.getDataVenc());
+            this.dispose();
+            return;
+        } catch (NullPointerException e) {
+            if(dataPgjDateChooser.getDate()==null){
+                dataPgjDateChooser.setBorder(new LineBorder(Color.RED));
+            }
+            if(dataVenjDateChooser.getDate()==null){
+                dataVenjDateChooser.setBorder(new LineBorder(Color.RED));
+            }
+        } catch (NumberFormatException e){
+            jTextFieldValor.setBorder(new LineBorder(Color.RED));
+        }
+        Mensagem.exibirMensagem("Dados incorretos! Alguns campos não foram inseridos\n"
+                + "ou inseridos de forma incorreta!");
+        
     }//GEN-LAST:event_jButtonLancarActionPerformed
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
@@ -343,7 +360,7 @@ public class AlunosLancarFaturaJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 
-    private Pagamento get(){
+    private Pagamento get() throws NullPointerException, NumberFormatException{
         p.setData(Util.converterCalendarToDate2(dataPgjDateChooser.getCalendar()));
         p.setDescricao(jComboBoxServico.getSelectedItem()+"");
         p.setFormaPag(jComboBoxFormaPag.getSelectedItem()+"");

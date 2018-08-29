@@ -1842,27 +1842,42 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        avaliacao = get();
-        if(avaliacao.getId()==0){
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAnamnese(a);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarComposicao_corporal(c);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarDobras_Cutaneas(d);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarPerimetria(p);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarMetas_ideais(m);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAvaliacao(avaliacao);
-            Mensagem.exibirMensagem("Avaliação cadastrada com sucesso!");
-            this.dispose();
-        }else{
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarAnamnese(a);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarComposicao_corporal(c);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarDobras_Cutaneas(d);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarPerimetria(p);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarMetas_ideais(m);
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarAvaliacao(avaliacao);
-            Mensagem.exibirMensagem("Avaliação editada com sucesso!");
-            this.dispose();
+        boolean excecao=false;
+        try {
+            avaliacao = get();
+        } catch (Exception e) {
+            excecao = true;
         }
-            
+        boolean compCorp = Util.verificarCampos(jPanelCCorporal);
+        boolean metas = Util.verificarCampos(jPanel1);
+        boolean dobrasCutaneas = Util.verificarCampos(jPanelDCutaneas);
+        boolean perimetria = Util.verificarCampos(jPanelPerimetria);
+        
+        if (compCorp && metas && dobrasCutaneas && perimetria && !excecao) {
+            if (avaliacao.getId() == 0) {
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAnamnese(a);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarComposicao_corporal(c);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarDobras_Cutaneas(d);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarPerimetria(p);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarMetas_ideais(m);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAvaliacao(avaliacao);
+                Mensagem.exibirMensagem("Avaliação cadastrada com sucesso!");
+                this.dispose();
+            } else {
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarAnamnese(a);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarComposicao_corporal(c);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarDobras_Cutaneas(d);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarPerimetria(p);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarMetas_ideais(m);
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarAvaliacao(avaliacao);
+                Mensagem.exibirMensagem("Avaliação editada com sucesso!");
+                this.dispose();
+            }
+        } else
+            Mensagem.exibirMensagem("Por favor preencha todos os campos corretamente! Verifique se todos\n"
+                    + " estão preenchidos ou se foi usado ',' em vez de '.'");
+        
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -2284,7 +2299,7 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel tabgismojLabe;
     // End of variables declaration//GEN-END:variables
 
-    private Avaliacao get() {
+    private Avaliacao get() throws NumberFormatException {
         a.setAtivFisica(jRadioButtonSimAtvFis.isSelected());
         a.setCardiopatias(jRadioButtonSimCard.isSelected());
         a.setDiabetes(jRadioButtonSimDiab.isSelected());
@@ -2369,8 +2384,7 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
         d = avaliacao.getDobras_Cutaneas();
         m = avaliacao.getMetas_ideais();
         p = avaliacao.getPerimetria();
-                
-        
+
         if (a.isAtivFisica()) {
             jRadioButtonSimAtvFis.setSelected(true);
         } else {
@@ -2473,14 +2487,14 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
 
         datajDateChooser.setDate(avaliacao.getData());
         proxDatajDateChooser.setDate(avaliacao.getProxima_avaliacao());
-        
+
     }
-    
-    private void datasAvaliacao(){
+
+    private void datasAvaliacao() {
         int dia = Calendar.getInstance().get(GregorianCalendar.DAY_OF_MONTH);
         int mes = Calendar.getInstance().get(GregorianCalendar.MONTH);
         int ano = Calendar.getInstance().get(GregorianCalendar.YEAR);
-        Date d = new Date(ano,mes,dia);
+        Date d = new Date(ano, mes, dia);
         Parcelas p = new Parcelas();
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
@@ -2490,7 +2504,7 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
         cal.add(Calendar.MONTH, 1);
         Date d2 = Util.converterCalendarToDate(cal);
         proxDatajDateChooser.setDate(d2);
-        
+
     }
 
     public JPanel getjPaneAnamnese() {

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javafx.scene.paint.Color;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -19,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.Conta;
 import model.FichaExercicio;
@@ -175,6 +178,25 @@ public class Util {
          } 
     }
     
+    public static boolean verificarCampos(JPanel p){
+        boolean retorno = true;
+        
+        for (int i=0; i < p.getComponentCount(); i++) { //For para todos os componentes do Panel 
+            Component c = p.getComponent(i); 
+            if (c instanceof JTextField) {  //Verificação da instanacia do componente 
+                JTextField field = (JTextField) c;
+                System.out.println(field.getText());
+                if(field.getText().isEmpty() || field.getText().isEmpty() || field.getText().equals("   .   .   -  ")
+                   || field.getText().equals("(  )     -    ") || field.getText().equals("      -   ")){
+                    field.setBorder(new LineBorder(java.awt.Color.RED));
+                    retorno = false;
+                }else
+                    field.setBorder(new LineBorder(java.awt.Color.black));
+            }
+                 
+        } 
+        return retorno;
+    }
     
     public static int getIndiceByID(ArrayList<FichaExercicio> exercicios, FichaExercicio busca){
         for(int i=0;i<exercicios.size();i++){

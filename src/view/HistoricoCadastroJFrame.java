@@ -5,9 +5,11 @@
  */
 package view;
 
+import java.awt.Color;
 import projeto_gym.pro.Projeto_GYMPRO;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import model.Conta;
 
 /**
@@ -199,14 +201,19 @@ public class HistoricoCadastroJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        if(jTextFieldId.getText().isEmpty()){
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarConta(getConta());
-            Mensagem.exibirMensagem("Histórico cadastrado com sucesso!");
+        if(jTextFieldNome.getText().isEmpty()){
+            jTextFieldNome.setBorder(new LineBorder(Color.RED));
+            Mensagem.exibirMensagem("Preencha o campo de nome!");
         }else{
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarConta(getConta());
-            Mensagem.exibirMensagem("Histórico editado com sucesso!");
-        }
+            if(jTextFieldId.getText().isEmpty()){
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarConta(getConta());
+                Mensagem.exibirMensagem("Histórico cadastrado com sucesso!");
+            }else{
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarConta(getConta());
+                Mensagem.exibirMensagem("Histórico editado com sucesso!");
+            }
         this.dispose();
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jComboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActionPerformed

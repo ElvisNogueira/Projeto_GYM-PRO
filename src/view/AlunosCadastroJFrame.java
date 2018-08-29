@@ -8,6 +8,7 @@ package view;
 import projeto_gym.pro.Projeto_GYMPRO;
 import projeto_gym.pro.Util;
 import fachada.Fachada;
+import java.awt.Color;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.ControleFinanceiro;
 import model.Endereco;
@@ -187,6 +189,7 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
 
         jTextFieldId.setEditable(false);
         jTextFieldId.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jTextFieldId.setText("0");
         jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIdActionPerformed(evt);
@@ -904,14 +907,38 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        System.out.println(jFormattedTextFieldCPF1.getText());
         if(Fachada.getFuncionarioLogado().isCadAlunoCadastrar()){
-            if(a.getId()==0){
-                a=projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAluno(getAluno());
-                Mensagem.exibirMensagem("Aluno cadastrado com sucesso!");
-                preencherTabela(Fachada.getInstance().getAllByIdParcelas(a.getId()));
+            
+            if(Util.verificarCampos(jPanelCadastro)){
+                if(a.getId()==0){
+                    try {
+                        a=projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAluno(getAluno());
+                        setAluno(a);
+                        Mensagem.exibirMensagem("Aluno cadastrado com sucesso!");
+                        preencherTabela(Fachada.getInstance().getAllByIdParcelas(a.getId()));
+                    } catch (NullPointerException e) {
+                        dataNasjDateChooser.setBorder(new LineBorder(Color.RED));
+                        Mensagem.exibirMensagem("Preencha todos os campos por favor!");
+                    }catch (NumberFormatException e) {
+                        Mensagem.exibirMensagem("Alguns dados estão incorretos! Verifique se existem letras\n"
+                                + " em campos numéricos, ou se foi colocado ',' em vez de '.'!");
+                    }
+                    
+                }else{
+                    try {
+                        a=projeto_gym.pro.Projeto_GYMPRO.fachada.editarAluno(getAluno());
+                        Mensagem.exibirMensagem("Aluno editado com sucesso!");
+                    }catch (NumberFormatException e) {
+                        Mensagem.exibirMensagem("Alguns dados estão incorretos! Verifique se existem letras\n"
+                                + " em campos numéricos, ou se foi colocado ',' em vez de '.'!");
+                    }catch (NullPointerException e) {
+                        dataNasjDateChooser.setBorder(new LineBorder(Color.RED));
+                        Mensagem.exibirMensagem("Preencha todos os campos por favor!");
+                    }
+                }
             }else{
-                a=projeto_gym.pro.Projeto_GYMPRO.fachada.editarAluno(getAluno());
-                Mensagem.exibirMensagem("Aluno editado com sucesso!");
+                Mensagem.exibirMensagem("Preencha todos os dados corretamente!");
             }
         }else{
             Mensagem.exibirErro();
@@ -1069,20 +1096,20 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldemail;
     // End of variables declaration//GEN-END:variables
 
-    public Aluno getAluno(){
+    public Aluno getAluno()throws NullPointerException, NumberFormatException{
        
-        if((jTextFieldValorMens.getText().equals("")|| jFormattedTextFieldDiaVenc.getText().equals(""))||
-            jTextFieldNome.getText().equals("")|| jTextFieldRG.getText().equals("") ||
-            jFormattedTextFieldCPF1.getText().equals("   .   .   -  ")|| jFormattedTextFieldCelular.getText().equals("(  )     -    ") ||
-            jTextFieldLogradouro.getText().equals("") || jTextFieldCidade.getText().equals("") ||
-            jTextFieldBairro.getText().equals("") || jTextFieldNumero.getText().equals("") ||
-            jFormattedTextFieldCEP.getText().equals("      -   ") || jTextFieldemail.getText().equals("") ||
-            (dataNasjDateChooser.getDate() == null)){
-            
-            Mensagem.exibirMensagem("Preencha todos os campos");            
-            return null;
-            
-        }else{
+//        if((jTextFieldValorMens.getText().equals("")|| jFormattedTextFieldDiaVenc.getText().equals(""))||
+//            jTextFieldNome.getText().equals("")|| jTextFieldRG.getText().equals("") ||
+//            jFormattedTextFieldCPF1.getText().equals("   .   .   -  ")|| jFormattedTextFieldCelular.getText().equals("(  )     -    ") ||
+//            jTextFieldLogradouro.getText().equals("") || jTextFieldCidade.getText().equals("") ||
+//            jTextFieldBairro.getText().equals("") || jTextFieldNumero.getText().equals("") ||
+//            jFormattedTextFieldCEP.getText().equals("      -   ") || jTextFieldemail.getText().equals("") ||
+//            (dataNasjDateChooser.getDate() == null)){
+//            
+//            Mensagem.exibirMensagem("Preencha todos os campos");            
+//            return null;
+//            
+//        }else{
             int num = Integer.parseInt(getjTextFieldNumero().getText());
             a.setCpf(this.getjFormattedTextFieldCPF1().getText());
             a.setData_nascimento(Util.converterCalendarToDate2(dataNasjDateChooser.getCalendar()));
@@ -1104,7 +1131,7 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
             a.getEndereco().setNum(num);
             a.getEndereco().setUf(getjComboBoxUF().getSelectedItem()+"");
             return a;
-        }
+//        }
     }
     
     public void setAluno(Aluno a){

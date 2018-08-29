@@ -17,6 +17,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import fachada.Fachada;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.Exercicio;
 import model.FichaDeTreino;
@@ -238,10 +240,11 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
 
         jLabeObejetivo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabeObejetivo.setForeground(new java.awt.Color(45, 118, 232));
-        jLabeObejetivo.setText("Obejetivo");
+        jLabeObejetivo.setText("Objetivo");
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jTextField1.setText("0");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -883,13 +886,27 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        if(jTextField1.getText().isEmpty()){
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarFichaDeTreino(getFicha());
-            dispose();
-        }else{
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarFichaDeTreino(getFicha());
-            dispose();
+        if(Util.verificarCampos(jPanelDetalhes)){
+            try {
+            if(jTextField1.getText().equals("0")){    
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarFichaDeTreino(getFicha());
+                dispose();
+            }else{
+                projeto_gym.pro.Projeto_GYMPRO.fachada.editarFichaDeTreino(getFicha());
+                dispose();
+            }
+         
+        } catch (NullPointerException e) {
+            Mensagem.exibirMensagem("Campo de datas não preenchido!");
+            if(dataIniciojDateChooser.getDate()==null){
+                dataIniciojDateChooser.setBorder(new LineBorder(Color.RED));
+            }
+            if(dataReavjDateChooser.getDate()==null){
+                dataReavjDateChooser.setBorder(new LineBorder(Color.RED));
+            }
         }
+        }else
+            Mensagem.exibirMensagem("Por favor, preencha todos os campos!");
         
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -909,20 +926,26 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonIncluir12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluir12ActionPerformed
-        if(jTextField1.getText().isEmpty()){
-            miniGet();
-            preencherTabelas();
-        }else{
-            segjCheckBox10.setSelected(false);
-            terjCheckBox10.setSelected(false);
-            quajCheckBox10.setSelected(false);
-            quijCheckBox10.setSelected(false);
-            sexjCheckBox10.setSelected(false);
-            sabjCheckBox10.setSelected(false);
-            domjCheckBox10.setSelected(false);
-            miniGetEdit();
-            preencherTabelas();
+        try {
+           if(jTextField1.getText().equals("0")){
+                miniGet();
+                preencherTabelas();
+            }else{
+                segjCheckBox10.setSelected(false);
+                terjCheckBox10.setSelected(false);
+                quajCheckBox10.setSelected(false);
+                quijCheckBox10.setSelected(false);
+                sexjCheckBox10.setSelected(false);
+                sabjCheckBox10.setSelected(false);
+                domjCheckBox10.setSelected(false);
+                miniGetEdit();
+                preencherTabelas();
+            } 
+        } catch (NumberFormatException e) {
+            Mensagem.exibirMensagem("Dados incorretos! Prencha os campos numéricos corretamente!");
         }
+        
+        
     }//GEN-LAST:event_jButtonIncluir12ActionPerformed
 
     private void jTextFieldRepeticoe12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRepeticoe12ActionPerformed
@@ -1132,7 +1155,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel testejPanel;
     // End of variables declaration//GEN-END:variables
 
-    public FichaDeTreino getFicha(){
+    public FichaDeTreino getFicha() throws NullPointerException{
 
         ficha.setData(Util.converterCalendarToDate2(dataIniciojDateChooser.getCalendar()));
         ficha.setDataReavaliacao(Util.converterCalendarToDate2(dataReavjDateChooser.getCalendar()));    
@@ -1206,7 +1229,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
              
     }
     
-    public void miniGet(){
+    public void miniGet() throws NumberFormatException{
         fichaExer.setRepeticoes(Integer.parseInt(jTextFieldRepeticoe12.getText()));
         fichaExer.setOrdem(Integer.parseInt(jSpinnerOrdem12.getValue().toString()));
         fichaExer.setSerie(Integer.parseInt(jSpinnerSerie12.getValue().toString()));
@@ -1310,7 +1333,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
         return excluir;
     }
     
-    public void miniGetEdit(){
+    public void miniGetEdit() throws NumberFormatException{
         fichaExer.setRepeticoes(Integer.parseInt(jTextFieldRepeticoe12.getText()));
         fichaExer.setOrdem(Integer.parseInt(jSpinnerOrdem12.getValue().toString()));
         fichaExer.setSerie(Integer.parseInt(jSpinnerSerie12.getValue().toString()));

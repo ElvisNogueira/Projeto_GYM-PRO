@@ -5,9 +5,11 @@
  */
 package view;
 
+import java.awt.Color;
 import projeto_gym.pro.Projeto_GYMPRO;
 import projeto_gym.pro.Util;
 import java.util.ArrayList;
+import javax.swing.border.LineBorder;
 import model.ControleFinanceiro;
 
 /**
@@ -272,11 +274,28 @@ public class FinanceiroLancarFaturaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
 
     private void jButtonLancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLancarActionPerformed
-        get();
-        if(c.getId()==0)
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarControleFinanceiro(c);
-        else
-            projeto_gym.pro.Projeto_GYMPRO.fachada.editarControleFinanceiro(c);
+        try {
+            if(jTextFieldDescricao.getText().isEmpty()){
+                jTextFieldDescricao.setBorder(new LineBorder(Color.RED));
+            }else{
+                get();
+                if(c.getId()==0)
+                    projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarControleFinanceiro(c);
+                else
+                    projeto_gym.pro.Projeto_GYMPRO.fachada.editarControleFinanceiro(c);
+                dispose();
+                return;
+            } 
+        } catch (NullPointerException e) {
+            if(dataPgjDateChooser.getDate()==null){
+               dataPgjDateChooser.setBorder(new LineBorder(Color.RED));
+            }
+        } catch (NumberFormatException e){
+            jTextFieldValor.setBorder(new LineBorder(Color.RED));
+        }
+        Mensagem.exibirMensagem("Dados incorretos! Alguns campos não foram inseridos\n"
+                + "ou inseridos de forma incorreta!");
+        
     }//GEN-LAST:event_jButtonLancarActionPerformed
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
@@ -313,7 +332,7 @@ public class FinanceiroLancarFaturaJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
     
-    private ControleFinanceiro get(){
+    private ControleFinanceiro get() throws NumberFormatException, NullPointerException{
         c.setConta(projeto_gym.pro.Projeto_GYMPRO.fachada.getByNomeConta(jComboBoxHistorico.getSelectedItem()+""));
         c.setData(Util.converterCalendarToDate2(dataPgjDateChooser.getCalendar()));
         c.setDescricao(jTextFieldDescricao.getText());

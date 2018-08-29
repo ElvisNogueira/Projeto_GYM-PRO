@@ -5,9 +5,12 @@
  */
 package view;
 
+import java.awt.Color;
 import projeto_gym.pro.Projeto_GYMPRO;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import model.Exercicio;
 
 /**
@@ -197,11 +200,16 @@ public class ExerciciosCadastroJFrame extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         Exercicio e = getExercicio();
-        if(e.getId()==0)
-            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarExercicio(e);
-        else
-            fachada.Fachada.getInstance().editarExercicio(e);
-        this.dispose();
+        if(e.getNome().isEmpty()){
+            jTextFieldNomeExer.setBorder(new LineBorder(Color.RED));
+            Mensagem.exibirMensagem("O campo nome do exercício está em branco!");
+        }else{
+            if(e.getId()==0)
+                projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarExercicio(e);
+            else
+                fachada.Fachada.getInstance().editarExercicio(e);
+            this.dispose();
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jTextFieldNomeExerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeExerActionPerformed
