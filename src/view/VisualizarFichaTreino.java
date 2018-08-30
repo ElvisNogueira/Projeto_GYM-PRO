@@ -95,7 +95,7 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
         cabjLabe.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 36)); // NOI18N
         cabjLabe.setForeground(new java.awt.Color(255, 255, 255));
         cabjLabe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/list_white.png"))); // NOI18N
-        cabjLabe.setText(" Fluxo do caixa");
+        cabjLabe.setText(" Ficha de Treino");
 
         javax.swing.GroupLayout jPanelBlueLayout = new javax.swing.GroupLayout(jPanelBlue);
         jPanelBlue.setLayout(jPanelBlueLayout);
@@ -104,7 +104,7 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
             .addGroup(jPanelBlueLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(cabjLabe)
-                .addContainerGap(888, Short.MAX_VALUE))
+                .addContainerGap(892, Short.MAX_VALUE))
         );
         jPanelBlueLayout.setVerticalGroup(
             jPanelBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
