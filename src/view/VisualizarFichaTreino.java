@@ -10,6 +10,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -27,13 +28,14 @@ import javax.swing.JTable;
 import model.ControleFinanceiro;
 import model.FichaExercicio;
 import model.ModeloTabela;
+import static view.AlunosFichaExercicioJFrame.salvarcomo;
 
 /**
  *
  * @author Insinuante
  */
 public class VisualizarFichaTreino extends javax.swing.JFrame {
-    
+
     ArrayList<FichaExercicio> seg;
     ArrayList<FichaExercicio> ter;
     ArrayList<FichaExercicio> qua;
@@ -41,6 +43,7 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
     ArrayList<FichaExercicio> sex;
     ArrayList<FichaExercicio> sab;
     ArrayList<FichaExercicio> dom;
+
     /**
      * Creates new form NewJFrameLogin
      */
@@ -49,9 +52,9 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
         carregarTabelar();
     }
 
-    public VisualizarFichaTreino(ArrayList<FichaExercicio> seg, ArrayList<FichaExercicio> ter, 
-        ArrayList<FichaExercicio> qua, ArrayList<FichaExercicio> qui, ArrayList<FichaExercicio> sex, 
-        ArrayList<FichaExercicio> sab, ArrayList<FichaExercicio> dom) {
+    public VisualizarFichaTreino(ArrayList<FichaExercicio> seg, ArrayList<FichaExercicio> ter,
+            ArrayList<FichaExercicio> qua, ArrayList<FichaExercicio> qui, ArrayList<FichaExercicio> sex,
+            ArrayList<FichaExercicio> sab, ArrayList<FichaExercicio> dom) {
         initComponents();
         this.seg = seg;
         this.ter = ter;
@@ -62,8 +65,6 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
         this.dom = dom;
         carregarTabelar();
     }
-    
-     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,7 +204,7 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerarPDFjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarPDFjButtonActionPerformed
-        gerarPDF(Fachada.getInstance().getAllControleFinanceiro());
+        gerarPDF();
     }//GEN-LAST:event_gerarPDFjButtonActionPerformed
 
     private void jComboBoxdiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxdiaActionPerformed
@@ -222,37 +223,43 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable treinoDiajTable;
     // End of variables declaration//GEN-END:variables
-    
-    private void carregarTabelar(){
-        String[] colunas = new String[]{"Exercício","Série","Rep.","Obs"};
+
+    private void carregarTabelar() {
+        String[] colunas = new String[]{"Exercício", "Série", "Rep.", "Obs"};
         ArrayList<Object[]> dados = new ArrayList<>();
-        
-        if((jComboBoxdia.getSelectedItem()+"").equals("Segunda")){
-            for(FichaExercicio f: seg)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Terça")){
-            for(FichaExercicio f: ter)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Quarta")){
-            for(FichaExercicio f: qua)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Quinta")){
-            for(FichaExercicio f: qui)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Sexta")){
-            for(FichaExercicio f: sex)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Sábado")){
-            for(FichaExercicio f: sab)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
-        }else if((jComboBoxdia.getSelectedItem()+"").equals("Domingo")){ 
-            for(FichaExercicio f: dom)
-                dados.add(new Object[]{f.getExercicio().getNome(),f.getSerie(),f.getRepeticoes(),f.getObs()});
+
+        if ((jComboBoxdia.getSelectedItem() + "").equals("Segunda")) {
+            for (FichaExercicio f : seg) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Terça")) {
+            for (FichaExercicio f : ter) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Quarta")) {
+            for (FichaExercicio f : qua) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Quinta")) {
+            for (FichaExercicio f : qui) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Sexta")) {
+            for (FichaExercicio f : sex) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Sábado")) {
+            for (FichaExercicio f : sab) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
+        } else if ((jComboBoxdia.getSelectedItem() + "").equals("Domingo")) {
+            for (FichaExercicio f : dom) {
+                dados.add(new Object[]{f.getExercicio().getNome(), f.getSerie(), f.getRepeticoes(), f.getObs()});
+            }
         }
-        
-        
-        ModeloTabela modeloTabela =  new ModeloTabela(dados, colunas);   
-        treinoDiajTable.setModel(modeloTabela);      
+
+        ModeloTabela modeloTabela = new ModeloTabela(dados, colunas);
+        treinoDiajTable.setModel(modeloTabela);
         treinoDiajTable.getColumnModel().getColumn(0).setPreferredWidth(450);
         treinoDiajTable.getColumnModel().getColumn(0).setResizable(false);
         treinoDiajTable.getColumnModel().getColumn(1).setPreferredWidth(54);
@@ -264,54 +271,89 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
         treinoDiajTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    public void gerarPDF(ArrayList<ControleFinanceiro> financeiro){
+    public void gerarPDF() {
         Document doc = new Document();
         String end = "";
+        String dia = (jComboBoxdia.getSelectedItem() + "");
         try {
-            end = AlunosFichaExercicioJFrame.salvarcomo(this);
-            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio do Fluxo do caixa.pdf"));
-            
-            Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
-            Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
-            PdfPTable table = new PdfPTable(5);
-            
-            table.addCell(new Paragraph("Id", fontTexto));
-            table.addCell(new Paragraph("Data", fontTexto));
-            table.addCell(new Paragraph("Hístorico", fontTexto));
-            table.addCell(new Paragraph("Descrição", fontTexto));
-            table.addCell(new Paragraph("Valor", fontTexto));
-            
-            ArrayList<ControleFinanceiro> financeiroLista = new ArrayList<>();
-            
-            for(ControleFinanceiro c : financeiro){
-                financeiroLista.add(c);
+            File file = new File("Ficha de treino" + dia + ".pdf");
+            end = salvarcomo(this);
+            PdfWriter.getInstance(doc, new FileOutputStream(end + "/Ficha de treino " + dia + ".pdf"));
+            doc.setPageSize(PageSize.A4.rotate());
+            Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD, BaseColor.BLACK);
+            Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK);
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.WHITE);
+
+            PdfPTable table = new PdfPTable(4);
+
+            if (dia.equals("Segunda")) {
+                for (FichaExercicio a : seg) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Terça")) {
+                for (FichaExercicio a : ter) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Quarta")) {
+                for (FichaExercicio a : qua) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Quinta")) {
+                for (FichaExercicio a : qui) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+                for (FichaExercicio a : qui) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Sexta")) {
+                for (FichaExercicio a : sex) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Sábado")) {
+                for (FichaExercicio a : sab) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
+            } else if (dia.equals("Domingo")) {
+                for (FichaExercicio a : dom) {
+                    table.addCell(new Paragraph("" + a.getExercicio().getNome(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getSerie(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getRepeticoes(), fontTexto));
+                    table.addCell(new Paragraph("" + a.getObs(), fontTexto));
+                }
             }
-            
-            for(ControleFinanceiro c : financeiroLista){
-                table.addCell(new Paragraph(""+c.getId(), fontTexto));
-                table.addCell(new Paragraph(""+c.getData(), fontTexto));                
-                table.addCell(new Paragraph(""+c.getDescricao(), fontTexto));  
-                table.addCell(new Paragraph(""+c.getConta().getDescricao(), fontTexto));              
-                table.addCell(new Paragraph(""+c.getValor(), fontTexto));
-            }
-                     
-            doc.open();            
-            doc.add(new Paragraph(Util.getDatasRel(new java.util.Date()),fontTexto));
-            doc.add(new Paragraph("GYM - Relatorio do Fluxo do caixa\n\n",fontCab));
-            doc.add(table);
-            
-            
+
         } catch (FileNotFoundException | DocumentException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             doc.close();
         }
-        
+
         try {
-            Desktop.getDesktop().open(new File(end+"/Relatorio do Fluxo do caixa.pdf"));
+            Desktop.getDesktop().open(new File(end + "Ficha de treino " + dia + ".pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }
