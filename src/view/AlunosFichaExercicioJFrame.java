@@ -40,6 +40,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.Exercicio;
@@ -398,6 +402,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
         jLabeRepeticoes12.setText("Repetições");
 
         jTextField16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jTextField16.setText("  ");
         jTextField16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField16ActionPerformed(evt);
@@ -713,46 +718,50 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPaneTreinoLayout.createSequentialGroup()
                         .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPaneTreinoLayout.createSequentialGroup()
-                                    .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jSpinnerOrdem12)
-                                            .addComponent(jLabeOrdem25))
-                                        .addComponent(jLabeOrdem24))
-                                    .addGap(20, 20, 20)
-                                    .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPaneTreinoLayout.createSequentialGroup()
-                                            .addComponent(jComboExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(addExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabeExercicio12))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabeSerie12)
-                                        .addComponent(jSpinnerSerie12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(16, 16, 16)
-                                    .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextFieldRepeticoe12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabeRepeticoes12)))
-                                .addComponent(jTextField16))
-                            .addComponent(jComboBoxTipoExerc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel29)
-                            .addComponent(segjCheckBox10))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(terjCheckBox10))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel27)
-                            .addComponent(quajCheckBox10))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel26)
-                            .addComponent(quijCheckBox10))
+                            .addComponent(jComboBoxTipoExerc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPaneTreinoLayout.createSequentialGroup()
+                                .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPaneTreinoLayout.createSequentialGroup()
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jSpinnerOrdem12)
+                                                .addComponent(jLabeOrdem25))
+                                            .addComponent(jLabeOrdem24))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPaneTreinoLayout.createSequentialGroup()
+                                                .addComponent(jComboExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(addExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabeExercicio12))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabeSerie12)
+                                            .addComponent(jSpinnerSerie12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(16, 16, 16)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldRepeticoe12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabeRepeticoes12)))
+                                    .addComponent(jTextField16))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPaneTreinoLayout.createSequentialGroup()
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel29)
+                                            .addComponent(segjCheckBox10))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel28)
+                                            .addComponent(terjCheckBox10))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel27)
+                                            .addComponent(quajCheckBox10))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel26)
+                                            .addComponent(quijCheckBox10)))
+                                    .addComponent(importar))))
                         .addGap(30, 30, 30)
                         .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPaneTreinoLayout.createSequentialGroup()
@@ -775,9 +784,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel30)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(importar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(18, 18, 18)
                             .addComponent(excluirExercicio))
                         .addComponent(fichaDiajScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 949, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -791,11 +798,10 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabelProcurar1)
-                        .addComponent(excluirExercicio)
-                        .addComponent(importar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel30)
-                        .addComponent(jLabel10)))
+                        .addComponent(excluirExercicio))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addComponent(jLabel30)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneTreinoLayout.createSequentialGroup()
@@ -835,9 +841,11 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabeOrdem24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonIncluir12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(importar)
+                    .addGroup(jPaneTreinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonIncluir12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1317,7 +1325,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
         fichaExer.setOrdem(Integer.parseInt(jSpinnerOrdem12.getValue().toString()));
         fichaExer.setSerie(Integer.parseInt(jSpinnerSerie12.getValue().toString()));
         fichaExer.setExercicio(Fachada.getInstance().getExercicioNomeExercicio(jComboExercicio.getSelectedItem() + ""));
-        fichaExer.setObs(jTextField16.getText());
+        fichaExer.setObs(jTextField16.getText()+"- ");
 
         if(segjCheckBox10.isSelected()){
             seg.add(new FichaExercicio("segunda", fichaExer));
@@ -1909,12 +1917,76 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     
     public static String salvarcomo(JFrame tela) {
         try {
+            String lookAndFeelClassName = UIManager.getSystemLookAndFeelClassName();
+            UIManager.setLookAndFeel(lookAndFeelClassName);
             JFileChooser chooser = new JFileChooser();
+            
+            chooser.resetChoosableFileFilters();
+            UIManager.put("FileChooser.lookInLabelMnemonic", "E");  
+            UIManager.put("FileChooser.lookInLabelText", "Examinar em");  
+
+            UIManager.put("FileChooser.saveInLabelMnemonic", "S");  
+            UIManager.put("FileChooser.saveInLabelText", "Salvar em");  
+            UIManager.put("FileChooser.upFolderToolTipText", "Um nível acima");  
+            UIManager.put("FileChooser.upFolderAccessibleName", "Um nível acima");  
+
+            UIManager.put("FileChooser.homeFolderToolTipText", "Desktop");  
+            UIManager.put("FileChooser.homeFolderAccessibleName", "Desktop");  
+
+            UIManager.put("FileChooser.newFolderToolTipText", "Criar nova pasta");  
+            UIManager.put("FileChooser.newFolderAccessibleName", "Criar nova pasta");  
+
+            UIManager.put("FileChooser.listViewButtonToolTipText", "Lista");  
+            UIManager.put("FileChooser.listViewButtonAccessibleName", "Lista");  
+            UIManager.put("FileChooser.detailsViewButtonToolTipText", "Detalhes");  
+            UIManager.put("FileChooser.detailsViewButtonAccessibleName", "Detalhes");  
+
+            UIManager.put("FileChooser.fileNameLabelMnemonic", "N");  
+            UIManager.put("FileChooser.fileNameLabelText", "Salvar em:");  
+
+            UIManager.put("FileChooser.filesOfTypeLabelMnemonic", "A");  
+            UIManager.put("FileChooser.filesOfTypeLabelText", "Arquivos do tipo");  
+
+            UIManager.put("FileChooser.fileNameHeaderText", "Nome");  
+            UIManager.put("FileChooser.fileSizeHeaderText", "Tamanho");  
+            UIManager.put("FileChooser.fileTypeHeaderText", "Tipo");  
+            UIManager.put("FileChooser.fileDateHeaderText", "Data");  
+            UIManager.put("FileChooser.fileAttrHeaderText", "Atributos");  
+
+            UIManager.put("FileChooser.cancelButtonText", "Cancelar");  
+            UIManager.put("FileChooser.cancelButtonMnemonic", "C");  
+            UIManager.put("FileChooser.cancelButtonToolTipText", "Cancelar");  
+            UIManager.put("FileChooser.openButtonText", "Salvar");  
+            UIManager.put("FileChooser.openButtonMnemonic", "A");  
+            UIManager.put("FileChooser.openButtonToolTipText", "Salvar");  
+            UIManager.put("FileChooser.saveButtonText", "Salvar");  
+            UIManager.put("FileChooser.saveButtonToolTipText", "S");  
+            UIManager.put("FileChooser.saveButtonToolTipText", "Salvar");  
+            UIManager.put("FileChooser.updateButtonText", "Alterar");  
+            UIManager.put("FileChooser.updateButtonToolTipText", "A");  
+            UIManager.put("FileChooser.updateButtonToolTipText", "Alterar");  
+            UIManager.put("FileChooser.helpButtonText", "Ajuda");  
+            UIManager.put("FileChooser.helpButtonToolTipText", "A");  
+            UIManager.put("FileChooser.helpButtonToolTipText", "Ajuda");  
+            UIManager.put("FileChooser.acceptAllFileFilterText", "Todos os arquivos"); 
+            
+            SwingUtilities.updateComponentTreeUI(chooser);
+
             chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             chooser.showOpenDialog(tela);
             File file = chooser.getSelectedFile();
-
+            
             String l = file.getAbsolutePath();
+            
+            try {
+                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Metal".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (UnsupportedLookAndFeelException e) {} catch (ClassNotFoundException e) {
+            } catch (InstantiationException e) {} catch (IllegalAccessException e) {}
             
             return l;
         } catch (Exception x) {}
