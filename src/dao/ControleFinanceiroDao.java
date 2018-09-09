@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ControleFinanceiro;
@@ -105,6 +106,7 @@ public class ControleFinanceiroDao {
         ArrayList<ControleFinanceiro> financeiros = new ArrayList<>();
         
         try {
+            System.out.println("Data 1: "+d1);
             statement = SQLUtil.prepareStatement(SQLUtil.SELECT_BY_PERIODO_CONTROLE_FINANCEIRO);
             statement.setDate(1, d1);
             statement.setDate(2, d2);

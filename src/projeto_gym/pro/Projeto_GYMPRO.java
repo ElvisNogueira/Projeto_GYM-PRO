@@ -8,6 +8,7 @@ package projeto_gym.pro;
 import controller.LoginControlador;
 import fachada.Fachada;
 import java.util.ArrayList;
+import java.util.Calendar;
 import sql.SQLConnection;
 import sql.SQLUtil;
 import view.LoginJFrame;
@@ -24,7 +25,8 @@ public class Projeto_GYMPRO {
     public static Fachada fachada = Fachada.getInstance();
     
     public static void main(String[] args) {
-        
+        Calendar c = Calendar.getInstance();
+//        System.out.println(c.get(Calendar.WEEK_OF_YEAR)+" - "+Calendar.getInstance().getTime());
         Fachada.getInstance().atualizarParcelasAtrasadas();
         projeto_gym.pro.Util.atualizarMensalidades();
         LoginJFrame login = new LoginJFrame();

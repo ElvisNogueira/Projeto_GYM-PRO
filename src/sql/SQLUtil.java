@@ -104,6 +104,10 @@ public class SQLUtil {
     + "parc where DATE_PART('day', data_de_vencimento - now())<8 and DATE_PART("
     + "'day', data_de_vencimento - now())>0";
     
+    public static String SELECT_PARCELA_ALUNO_VENCER_PERIODO = "select * from (select * from parcelas where id=(select max(id) from (" +
+        "select * from parcelas where aluno_id = ?) as parcelas_alias)) as " +
+        "parc where data_de_vencimento between ? and ?";
+    
     public static String UPDATE_PARCELAS_ATRASADAS = "update parcelas set status = 'Atrasado' where data_de_vencimento "
             + "< now() and status = 'Em aberto'";
     public static String UPDATE_ALUNO = "update aluno set nome=?,cpf=?,data_nascimento=?,sexo=?,"

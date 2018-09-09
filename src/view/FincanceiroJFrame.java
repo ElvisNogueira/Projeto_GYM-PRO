@@ -27,7 +27,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         initComponents();
         financeiro = Fachada.getInstance().getAllControleFinanceiro();
         carregarTabelar(financeiro);
-        jFormattedTextFieldSaldo.setText(calcularSaldo(financeiro)+"");
+//        jFormattedTextFieldSaldo.setText(calcularSaldo(financeiro)+"");
     }
 
     /**
@@ -364,8 +364,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void refreshjLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshjLabelMouseClicked
-        carregarTabelar(financeiro);
-        jFormattedTextFieldSaldo.setText(calcularSaldo(financeiro)+"");
+        carregarTabelar(Fachada.getInstance().getAllControleFinanceiro());
         pUmjDateChooser.setDate(null);
         pDoisjDateChooser.setDate(null);
     }//GEN-LAST:event_refreshjLabelMouseClicked
@@ -416,6 +415,9 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         jTableCaixa.getColumnModel().getColumn(4).setResizable(false);
         
         jTableCaixa.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);    
+        
+        jFormattedTextFieldSaldo.setText(calcularSaldo(financeiro)+"");
+
     }
     
     private float calcularSaldo(ArrayList<ControleFinanceiro> f){

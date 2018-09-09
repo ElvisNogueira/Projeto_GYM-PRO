@@ -159,6 +159,22 @@ public class ParcelasDao {
         return null;
     } 
     
+    public Parcelas getVencerPlanoPeriodo(int id, Date d1, Date d2){
+        ResultSet result;
+        try {
+            statement = SQLUtil.prepareStatement(SQLUtil.SELECT_PARCELA_ALUNO_VENCER_PERIODO);
+            statement.setInt(1, id);
+            statement.setDate(2, d1);
+            statement.setDate(3, d2);
+            result = statement.executeQuery();
+            if(result.next())
+                return get(result);
+        } catch (Exception ex) {
+            Logger.getLogger(ParcelasDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public void atualizarParcelasAtrasadas(){
         try {
             statement = SQLUtil.prepareStatement(SQLUtil.UPDATE_PARCELAS_ATRASADAS);

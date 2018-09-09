@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,13 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alunoCredjTable = new javax.swing.JTable();
         gerarPDFjButton = new javax.swing.JButton();
+        jLabelProcurar = new javax.swing.JLabel();
+        jTextFieldProcurar = new javax.swing.JTextField();
+        jLabelIconPesquisar = new javax.swing.JLabel();
+        jComboBoxPeriodo = new javax.swing.JComboBox<>();
+        jLabelProcurar1 = new javax.swing.JLabel();
+        jDateChooserDataInicio = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataFim = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de Alunos");
@@ -111,27 +119,93 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabelProcurar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelProcurar.setForeground(new java.awt.Color(45, 118, 232));
+        jLabelProcurar.setText("Procurar");
+
+        jTextFieldProcurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProcurarActionPerformed(evt);
+            }
+        });
+        jTextFieldProcurar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldProcurarKeyReleased(evt);
+            }
+        });
+
+        jLabelIconPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8_Search_20px_2.png"))); // NOI18N
+        jLabelIconPesquisar.setToolTipText("Pesquisar");
+        jLabelIconPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelIconPesquisarMouseClicked(evt);
+            }
+        });
+
+        jComboBoxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Mensal", "Trimestral", "Semestral", "Anual", "Personalizado" }));
+        jComboBoxPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPeriodoActionPerformed(evt);
+            }
+        });
+
+        jLabelProcurar1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelProcurar1.setForeground(new java.awt.Color(45, 118, 232));
+        jLabelProcurar1.setText("Período");
+
+        jDateChooserDataInicio.setEnabled(false);
+
+        jDateChooserDataFim.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelBlue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1070, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gerarPDFjButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelProcurar)
+                            .addComponent(jTextFieldProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelProcurar1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jDateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jDateChooserDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1070, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(gerarPDFjButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanelBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelProcurar)
+                    .addComponent(jLabelProcurar1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooserDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooserDataFim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(gerarPDFjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,14 +227,100 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
         gerarPDF(Fachada.getInstance().getParcelasVencidas());
     }//GEN-LAST:event_gerarPDFjButtonActionPerformed
 
+    private void jTextFieldProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcurarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldProcurarActionPerformed
+
+    private void jTextFieldProcurarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldProcurarKeyReleased
+        String busca = this.jTextFieldProcurar.getText().toLowerCase();
+
+        if (busca.trim().length() == 0)
+            preencherTabela(Fachada.getInstance().getParcelasVencidas());
+        else
+            preencherTabela(Fachada.getInstance().getParcelasVencidasBusca(busca));
+    }//GEN-LAST:event_jTextFieldProcurarKeyReleased
+
+    private void jLabelIconPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelIconPesquisarMouseClicked
+        String busca = this.jTextFieldProcurar.getText().toLowerCase();
+        ArrayList <Parcelas> parcelas;
+        if (busca.trim().length() == 0)
+            parcelas = Fachada.getInstance().getParcelasVencidas();
+        else
+            parcelas = Fachada.getInstance().getParcelasVencidasBusca(busca);
+        if(jComboBoxPeriodo.getSelectedItem().equals("Semanal")){
+            ArrayList <Parcelas> p = new ArrayList<>();
+            Calendar c = Calendar.getInstance();
+            Calendar aux = Calendar.getInstance();
+            for(Parcelas parc : parcelas){
+                aux.setTime(parc.getData_de_Vencimento());
+                if(aux.get(Calendar.WEEK_OF_YEAR) == c.get(Calendar.WEEK_OF_YEAR))
+                    p.add(parc);
+            }
+            parcelas = p;
+        }else{
+           ArrayList <Parcelas> p = new ArrayList<>();
+            Calendar aux = Calendar.getInstance();
+            for(Parcelas parc : parcelas){
+                aux.setTime(parc.getData_de_Vencimento());
+                if(aux.getTime().after(jDateChooserDataInicio.getDate()) && aux.getTime().before(
+                   jDateChooserDataFim.getDate()))
+                    p.add(parc);
+            }
+            parcelas = p; 
+        }
+        preencherTabela(parcelas);
+    }//GEN-LAST:event_jLabelIconPesquisarMouseClicked
+
+    private void jComboBoxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeriodoActionPerformed
+        if(jComboBoxPeriodo.getSelectedItem().equals("Personalizado")){
+            jDateChooserDataFim.setEnabled(true);
+            jDateChooserDataInicio.setEnabled(true);
+            jDateChooserDataFim.setDate(null);
+            jDateChooserDataInicio.setDate(null);
+        }else{
+            jDateChooserDataFim.setEnabled(false); 
+            jDateChooserDataInicio.setEnabled(false);
+            Calendar d1 = Calendar.getInstance();
+                Calendar d2 = Calendar.getInstance();
+            if(jComboBoxPeriodo.getSelectedItem().equals("Mensal")){
+                d2.add(Calendar.MONTH, -1);
+
+                jDateChooserDataFim.setDate(d1.getTime());
+                jDateChooserDataInicio.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Trimestral")){
+                d2.add(Calendar.MONTH, -3);
+
+                jDateChooserDataFim.setDate(d1.getTime());
+                jDateChooserDataInicio.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Semestral")){
+                d2.add(Calendar.MONTH, -6);
+
+                jDateChooserDataFim.setDate(d1.getTime());
+                jDateChooserDataInicio.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Anual")){
+                d2.add(Calendar.MONTH, -12);
+
+                jDateChooserDataFim.setDate(d1.getTime());
+                jDateChooserDataInicio.setDate(d2.getTime());
+            }
+        }
+    }//GEN-LAST:event_jComboBoxPeriodoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable alunoCredjTable;
     private javax.swing.JLabel cabjLabe;
     private javax.swing.JButton gerarPDFjButton;
+    private javax.swing.JComboBox<String> jComboBoxPeriodo;
+    private com.toedter.calendar.JDateChooser jDateChooserDataFim;
+    private com.toedter.calendar.JDateChooser jDateChooserDataInicio;
+    private javax.swing.JLabel jLabelIconPesquisar;
+    private javax.swing.JLabel jLabelProcurar;
+    private javax.swing.JLabel jLabelProcurar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBlue;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldProcurar;
     // End of variables declaration//GEN-END:variables
 
     public void preencherTabela(ArrayList<Parcelas> parcelas){

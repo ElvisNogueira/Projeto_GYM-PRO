@@ -58,6 +58,9 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alunoCredjTable = new javax.swing.JTable();
         gerarPDFjButton = new javax.swing.JButton();
+        jTextFieldProsucar = new javax.swing.JTextField();
+        jLabelProcurar = new javax.swing.JLabel();
+        jLabelIconPesquisar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de funcionários");
@@ -79,7 +82,7 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
             .addGroup(jPanelBlueLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(cabjLabe)
-                .addContainerGap(934, Short.MAX_VALUE))
+                .addContainerGap(916, Short.MAX_VALUE))
         );
         jPanelBlueLayout.setVerticalGroup(
             jPanelBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,6 +116,29 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldProsucar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProsucarActionPerformed(evt);
+            }
+        });
+        jTextFieldProsucar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldProsucarKeyReleased(evt);
+            }
+        });
+
+        jLabelProcurar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelProcurar.setForeground(new java.awt.Color(45, 118, 232));
+        jLabelProcurar.setText("Procurar");
+
+        jLabelIconPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8_Search_20px_2.png"))); // NOI18N
+        jLabelIconPesquisar.setToolTipText("Pesquisar");
+        jLabelIconPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelIconPesquisarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,16 +147,28 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelProcurar)
                     .addComponent(gerarPDFjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jTextFieldProsucar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanelBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jLabelProcurar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldProsucar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelIconPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(gerarPDFjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -155,14 +193,43 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
         gerarPDF(Fachada.getInstance().getAllFuncionario());
     }//GEN-LAST:event_gerarPDFjButtonActionPerformed
 
+    private void jTextFieldProsucarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProsucarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldProsucarActionPerformed
+
+    private void jTextFieldProsucarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldProsucarKeyReleased
+        String busca = jTextFieldProsucar.getText().toLowerCase();
+        if(busca.trim().length() == 0){
+            preencherTabela(Fachada.getInstance().getAllFuncionario());
+            return;
+        }
+
+        ArrayList<Funcionario> f = Fachada.getInstance().getFuncionariosBusca(busca);
+        preencherTabela(f);
+    }//GEN-LAST:event_jTextFieldProsucarKeyReleased
+
+    private void jLabelIconPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelIconPesquisarMouseClicked
+        String busca = jTextFieldProsucar.getText().toLowerCase();
+        if(busca.trim().length() == 0){
+            preencherTabela(Fachada.getInstance().getAllFuncionario());
+            return;
+        }
+
+        ArrayList<Funcionario> f = Fachada.getInstance().getFuncionariosBusca(busca);
+        preencherTabela(f);
+    }//GEN-LAST:event_jLabelIconPesquisarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable alunoCredjTable;
     private javax.swing.JLabel cabjLabe;
     private javax.swing.JButton gerarPDFjButton;
+    private javax.swing.JLabel jLabelIconPesquisar;
+    private javax.swing.JLabel jLabelProcurar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBlue;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldProsucar;
     // End of variables declaration//GEN-END:variables
 
     public void preencherTabela(ArrayList<Funcionario> funcionarios){

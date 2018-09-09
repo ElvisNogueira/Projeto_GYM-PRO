@@ -108,7 +108,7 @@ public class Util {
     }
     
     public static void criarMensalidade(Aluno a){
-        int numPrcelas;
+        int numPrcelas=0;
         int dia = a.getVencimento_mens();
         int mes = Calendar.getInstance().get(GregorianCalendar.MONTH);
         int ano = Calendar.getInstance().get(GregorianCalendar.YEAR);
@@ -116,9 +116,13 @@ public class Util {
         Parcelas p = new Parcelas();
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
-        cal.add(Calendar.MONTH, 2);
-
-        if(a.getPlano().equals("Mensal"))
+        if(!a.getPlano().equals("Diário"))
+            cal.add(Calendar.MONTH, 2);
+        
+        
+        if(a.getPlano().equals("Diário"))
+            numPrcelas=1;
+        else if(a.getPlano().equals("Mensal"))
             numPrcelas=1;
         else if(a.getPlano().equals("Trimestral"))
             numPrcelas=3;
@@ -136,7 +140,9 @@ public class Util {
            p.setConta(con);
            
            Fachada.getInstance().cadastrarParcelas(p);
-           cal.add(Calendar.MONTH, 1);
+           if(!a.getPlano().equals("Diário"))
+               cal.add(Calendar.MONTH, 1);
+           
         }
          
     }
@@ -145,7 +151,8 @@ public class Util {
         int dia = Calendar.getInstance().get(GregorianCalendar.DAY_OF_MONTH);
         ArrayList<Aluno> alunos = Fachada.getInstance().getAllAluno();
         for(Aluno a : alunos){
-            if((a.getVencimento_mens()==dia) && (a.getStatus().equals("Ativo"))){
+            if((a.getVencimento_mens()==dia && (a.getStatus().equals("Ativo") && !a.getPlano().equals("Vitalício")))
+                    || a.getPlano().equals("Diário")){
                 criarMensalidade(a);
             }
         }     

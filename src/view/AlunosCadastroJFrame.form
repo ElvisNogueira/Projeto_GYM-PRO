@@ -776,11 +776,13 @@
                       <Font name="Arial" size="12" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Mensal"/>
-                        <StringItem index="1" value="Trimestral"/>
-                        <StringItem index="2" value="Semestral"/>
-                        <StringItem index="3" value="Anual"/>
+                      <StringArray count="6">
+                        <StringItem index="0" value="Di&#xe1;rio"/>
+                        <StringItem index="1" value="Mensal"/>
+                        <StringItem index="2" value="Trimestral"/>
+                        <StringItem index="3" value="Semestral"/>
+                        <StringItem index="4" value="Anual"/>
+                        <StringItem index="5" value="Vital&#xed;cio"/>
                       </StringArray>
                     </Property>
                   </Properties>

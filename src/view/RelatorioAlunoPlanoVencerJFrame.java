@@ -19,7 +19,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLData;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +58,11 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alunoCredjTable = new javax.swing.JTable();
         gerarPDFjButton = new javax.swing.JButton();
+        jComboBoxPeriodo = new javax.swing.JComboBox<>();
+        jDateChooserDataInicio = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataFim = new com.toedter.calendar.JDateChooser();
+        jLabelIconPesquisar1 = new javax.swing.JLabel();
+        jLabelProcurar2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alunos com plano a vencer");
@@ -111,6 +118,29 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Mensal", "Trimestral", "Semestral", "Anual", "Personalizado" }));
+        jComboBoxPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPeriodoActionPerformed(evt);
+            }
+        });
+
+        jDateChooserDataInicio.setEnabled(false);
+
+        jDateChooserDataFim.setEnabled(false);
+
+        jLabelIconPesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8_Search_20px_2.png"))); // NOI18N
+        jLabelIconPesquisar1.setToolTipText("Pesquisar");
+        jLabelIconPesquisar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelIconPesquisar1MouseClicked(evt);
+            }
+        });
+
+        jLabelProcurar2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelProcurar2.setForeground(new java.awt.Color(45, 118, 232));
+        jLabelProcurar2.setText("Período");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -119,6 +149,15 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelProcurar2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jDateChooserDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooserDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelIconPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(gerarPDFjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -127,8 +166,16 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanelBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelProcurar2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelIconPesquisar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooserDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooserDataFim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(gerarPDFjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -153,26 +200,80 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
         gerarPDF(Fachada.getInstance().AlunosPlanosVencer());
     }//GEN-LAST:event_gerarPDFjButtonActionPerformed
 
+    private void jComboBoxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeriodoActionPerformed
+        if(jComboBoxPeriodo.getSelectedItem().equals("Personalizado")){
+            jDateChooserDataFim.setEnabled(true);
+            jDateChooserDataInicio.setEnabled(true);
+            jDateChooserDataFim.setDate(null);
+            jDateChooserDataInicio.setDate(null);
+        }else{
+            jDateChooserDataFim.setEnabled(false); 
+            jDateChooserDataInicio.setEnabled(false);
+            Calendar d1 = Calendar.getInstance();
+                Calendar d2 = Calendar.getInstance();
+            if(jComboBoxPeriodo.getSelectedItem().equals("Mensal")){
+                d2.add(Calendar.MONTH, +1);
+
+                jDateChooserDataFim.setDate(d2.getTime());
+                jDateChooserDataInicio.setDate(d1.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Trimestral")){
+                d2.add(Calendar.MONTH, +3);
+
+                jDateChooserDataFim.setDate(d2.getTime());
+                jDateChooserDataInicio.setDate(d1.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Semestral")){
+                d2.add(Calendar.MONTH, +6);
+
+                jDateChooserDataFim.setDate(d2.getTime());
+                jDateChooserDataInicio.setDate(d1.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Anual")){
+                d2.add(Calendar.MONTH, +12);
+
+                jDateChooserDataFim.setDate(d2.getTime());
+                jDateChooserDataInicio.setDate(d1.getTime());
+            }
+            
+        }
+    }//GEN-LAST:event_jComboBoxPeriodoActionPerformed
+
+    private void jLabelIconPesquisar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelIconPesquisar1MouseClicked
+        ArrayList <Parcelas> parcelas = Fachada.getInstance().AlunosPlanosVencer();
+        java.sql.Date d1 = new java.sql.Date(jDateChooserDataInicio.getDate().getYear(), 
+                jDateChooserDataInicio.getDate().getMonth(), jDateChooserDataInicio.getDate().getDay());
+        java.sql.Date d2 = new java.sql.Date(jDateChooserDataFim.getDate().getYear(), 
+                jDateChooserDataFim.getDate().getMonth(), jDateChooserDataFim.getDate().getDay());
+        
+        if(!jComboBoxPeriodo.getSelectedItem().equals("Semanal")){
+           parcelas = Fachada.getInstance().AlunosPlanosVencerPeriodo(d1,d2);
+        }
+        preencherTabela(parcelas);
+    }//GEN-LAST:event_jLabelIconPesquisar1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable alunoCredjTable;
     private javax.swing.JLabel cabjLabe;
     private javax.swing.JButton gerarPDFjButton;
+    private javax.swing.JComboBox<String> jComboBoxPeriodo;
+    private com.toedter.calendar.JDateChooser jDateChooserDataFim;
+    private com.toedter.calendar.JDateChooser jDateChooserDataInicio;
+    private javax.swing.JLabel jLabelIconPesquisar1;
+    private javax.swing.JLabel jLabelProcurar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBlue;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela(ArrayList<Parcelas>parc){
-        String[] colunas = new String[]{"ID","Nome","Data"};
+    public void preencherTabela(ArrayList<Parcelas> parc) {
+        String[] colunas = new String[]{"ID", "Nome", "Data"};
         ArrayList<Object[]> dados = new ArrayList<>();
-        
-        for(Parcelas p : parc){
-            dados.add(new Object[]{p.getId(),p.getAlunos().getNome(), p.getData_de_Vencimento()});
+
+        for (Parcelas p : parc) {
+            dados.add(new Object[]{p.getId(), p.getAlunos().getNome(), p.getData_de_Vencimento()});
         }
-        
-        ModeloTabela modeloTabela =  new ModeloTabela(dados, colunas);   
-        alunoCredjTable.setModel(modeloTabela);      
+
+        ModeloTabela modeloTabela = new ModeloTabela(dados, colunas);
+        alunoCredjTable.setModel(modeloTabela);
         alunoCredjTable.getColumnModel().getColumn(0).setPreferredWidth(90);
         alunoCredjTable.getColumnModel().getColumn(0).setResizable(false);
         alunoCredjTable.getColumnModel().getColumn(1).setPreferredWidth(560);
@@ -181,48 +282,46 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
         alunoCredjTable.getColumnModel().getColumn(2).setResizable(false);
         alunoCredjTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
-    
-    public void gerarPDF(ArrayList<Parcelas>parc){
+
+    public void gerarPDF(ArrayList<Parcelas> parc) {
         Document doc = new Document();
         String end = "";
         try {
             end = AlunosFichaExercicioJFrame.salvarcomo(this);
-            PdfWriter.getInstance(doc, new FileOutputStream(end+"/Relatorio de Alunos com plano a vencer.pdf"));
-            
-            Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD,BaseColor.BLACK);
-            Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.NORMAL,BaseColor.BLACK);
+            PdfWriter.getInstance(doc, new FileOutputStream(end + "/Relatorio de Alunos com plano a vencer.pdf"));
+
+            Font fontCab = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD, BaseColor.BLACK);
+            Font fontTexto = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK);
             PdfPTable table = new PdfPTable(3);
-            
+
             table.addCell(new Paragraph("Id", fontTexto));
             table.addCell(new Paragraph("Nome", fontTexto));
             table.addCell(new Paragraph("Dia Vencimento", fontTexto));
-            
-            
-            for(Parcelas p : parc){
-                table.addCell(new Paragraph(""+p.getId(), fontTexto));
-                table.addCell(new Paragraph(""+p.getAlunos().getNome(), fontTexto));                
-                table.addCell(new Paragraph(""+p.getData_de_Vencimento(), fontTexto));
-                 
-             }
-            
-            doc.open();            
-            doc.add(new Paragraph(Util.getDatasRel(new Date()),fontTexto));
-            doc.add(new Paragraph("GYM - Relatorio de Alunos com plano a vencer\n\n",fontCab));
+
+            for (Parcelas p : parc) {
+                table.addCell(new Paragraph("" + p.getId(), fontTexto));
+                table.addCell(new Paragraph("" + p.getAlunos().getNome(), fontTexto));
+                table.addCell(new Paragraph("" + p.getData_de_Vencimento(), fontTexto));
+
+            }
+
+            doc.open();
+            doc.add(new Paragraph(Util.getDatasRel(new Date()), fontTexto));
+            doc.add(new Paragraph("GYM - Relatorio de Alunos com plano a vencer\n\n", fontCab));
             doc.add(table);
-            
-            
+
         } catch (FileNotFoundException | DocumentException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             doc.close();
         }
-        
+
         try {
-            Desktop.getDesktop().open(new File(end+"/Relatorio de Alunos com plano a vencer.pdf"));
+            Desktop.getDesktop().open(new File(end + "/Relatorio de Alunos com plano a vencer.pdf"));
         } catch (IOException ex) {
             Logger.getLogger(RelatoriListaFunJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
 }

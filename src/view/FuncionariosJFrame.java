@@ -264,7 +264,7 @@ public class FuncionariosJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldProsucar;
     // End of variables declaration//GEN-END:variables
 
-        private void carregarTabela(ArrayList<Funcionario> funcionarios) {
+    private void carregarTabela(ArrayList<Funcionario> funcionarios) {
         String[] colunas = new String[]{"ID","NOME","FUNÇÃO"};
         ArrayList<Object[]> dados = new ArrayList<>();
         

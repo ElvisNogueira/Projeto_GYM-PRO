@@ -70,9 +70,37 @@ public class ParcelasBusiness {
         return  parcelas;
     }
     
+    public ArrayList<Parcelas> AlunosPlanosVencerBusca(Date d1, Date d2){
+        ArrayList<Parcelas> parcelas = new ArrayList<>();
+        Parcelas p;
+        for(Aluno a : Fachada.getInstance().getAllAluno()){
+            if(a.getStatus().equals("Ativo")){
+                p = dao.getVencerPlanoPeriodo(a.getId(),d1,d2);
+                
+                if(p!=null){
+                    parcelas.add(p);
+                }
+            }
+        }
+        
+        
+        return  parcelas;
+    }
+    
     public ArrayList<Parcelas> getParcelasVencidas(){
         return dao.getParcelasVencidas();
     }
+    
+    public ArrayList<Parcelas> getParcelasVencidasBusca(String busca){
+        ArrayList<Parcelas> parcelas = new ArrayList<>();
+        for(Parcelas p : dao.getParcelasVencidas()){
+            if(p.getAlunos().getCpf().contains(busca) || p.getAlunos().getNome().toLowerCase().contains(busca))
+                parcelas.add(p);
+        }
+        return parcelas;
+    }
+    
+    
     
     public void atualizarParcelasAtrasadas(){
         dao.atualizarParcelasAtrasadas();

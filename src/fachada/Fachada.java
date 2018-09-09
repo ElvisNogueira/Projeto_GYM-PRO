@@ -498,8 +498,16 @@ public class Fachada {
        return parcelasBusiness.AlunosPlanosVencer();
     }
     
+    public ArrayList<Parcelas> AlunosPlanosVencerPeriodo(Date d1, Date d2){
+       return parcelasBusiness.AlunosPlanosVencerBusca(d1, d2);
+    }
+    
     public ArrayList<Parcelas> getParcelasVencidas(){
         return parcelasBusiness.getParcelasVencidas();
+    }
+    
+    public ArrayList<Parcelas> getParcelasVencidasBusca(String busca){
+        return parcelasBusiness.getParcelasVencidasBusca(busca);
     }
      
     public void atualizarParcelasAtrasadas(){
