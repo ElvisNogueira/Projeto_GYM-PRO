@@ -345,7 +345,7 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
         jLabelId1.setText("Dia de Venci.");
 
         jComboBoxPlano.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jComboBoxPlano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diário", "Mensal", "Trimestral", "Semestral", "Anual", "Vitalício" }));
+        jComboBoxPlano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diário", "Semanal", "Quinzenal", "Mensal", "Trimestral", "Semestral", "Anual", "Vitalício" }));
         jComboBoxPlano.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxPlanoActionPerformed(evt);
@@ -907,14 +907,12 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        System.out.println(jFormattedTextFieldCPF1.getText());
         if(Fachada.getFuncionarioLogado().isCadAlunoCadastrar()){
             
             if(Util.verificarCampos(jPanelCadastro)){
                 if(a.getId()==0){
                     try {
-                        if(!getAluno().getPlano().equals("Vitalício"))
-                            a=projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAluno(getAluno());
+                        a=projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAluno(getAluno());
                         setAluno(a);
                         Mensagem.exibirMensagem("Aluno cadastrado com sucesso!");
                         preencherTabela(Fachada.getInstance().getAllByIdParcelas(a.getId()));

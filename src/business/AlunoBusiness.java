@@ -30,7 +30,7 @@ public class AlunoBusiness {
     public Aluno cadastrar(Aluno aluno) {
         Fachada f = Fachada.getInstance();
         Aluno a = dao.cadastrar(aluno);
-        if(a!=null){
+        if(a!=null || a.getPlano().equals("Vitalício")){
             Util.criarMensalidade(a);
         }
         return a;

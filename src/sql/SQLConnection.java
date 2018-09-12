@@ -32,8 +32,8 @@ public static String BD__POSTGRESS = "POSTGRES";
                         conexao = DriverManager.getConnection(
                                 SQLUtil.URL_POSTGRES,
                                 SQLUtil.USUARIO_POSTGRES,
-                                SQLUtil.SENHA_POSTGRES
-                        );
+                                SQLUtil.SENHA_POSTGRES 
+                       );
                         break;
                     default:
                         break;

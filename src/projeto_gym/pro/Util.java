@@ -116,13 +116,19 @@ public class Util {
         Parcelas p = new Parcelas();
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
-        if(!a.getPlano().equals("Diário"))
+        if(!(a.getPlano().equals("Diário") || a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal"))){
             cal.add(Calendar.MONTH, 2);
-        
+        }
         
         if(a.getPlano().equals("Diário"))
             numPrcelas=1;
-        else if(a.getPlano().equals("Mensal"))
+        else if(a.getPlano().equals("Semanal")){
+            numPrcelas=1;
+            cal.add(Calendar.DAY_OF_MONTH, 7);
+        }else if(a.getPlano().equals("Quinzenal")){
+            numPrcelas=1;
+            cal.add(Calendar.DAY_OF_MONTH, 15);
+        }else if(a.getPlano().equals("Mensal"))
             numPrcelas=1;
         else if(a.getPlano().equals("Trimestral"))
             numPrcelas=3;
@@ -133,6 +139,10 @@ public class Util {
         
         for(int i=0;i<numPrcelas;i++){
            p.setData_de_Vencimento(converterCalendarToDate(cal));
+           if((a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal"))){
+               a.setVencimento_mens(cal.get(cal.DAY_OF_MONTH));
+           }
+           Fachada.getInstance().editarAluno(a);
            p.setAlunos(a);
            p.setStatus("Em aberto");
            p.setValor(a.getValorPlano()/numPrcelas);      
@@ -140,7 +150,7 @@ public class Util {
            p.setConta(con);
            
            Fachada.getInstance().cadastrarParcelas(p);
-           if(!a.getPlano().equals("Diário"))
+           if(!(a.getPlano().equals("Diário") || a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal")))
                cal.add(Calendar.MONTH, 1);
            
         }
@@ -151,7 +161,7 @@ public class Util {
         int dia = Calendar.getInstance().get(GregorianCalendar.DAY_OF_MONTH);
         ArrayList<Aluno> alunos = Fachada.getInstance().getAllAluno();
         for(Aluno a : alunos){
-            if((a.getVencimento_mens()==dia && (a.getStatus().equals("Ativo") && !a.getPlano().equals("Vitalício")))
+            if((a.getVencimento_mens()<=dia && (a.getStatus().equals("Ativo") && !a.getPlano().equals("Vitalício")))
                     || a.getPlano().equals("Diário")){
                 criarMensalidade(a);
             }
