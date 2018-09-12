@@ -103,7 +103,6 @@ public class Fachada {
     }
     
     public Aluno cadastrarAluno(Aluno a){
-        enderecoBusiness.cadastrar(a.getEndereco());
         return alunoBusiness.cadastrar(a);
     }
     

@@ -9,6 +9,8 @@ import dao.FuncionarioDao;
 import fachada.Fachada;
 import java.util.ArrayList;
 import model.Funcionario;
+import projeto_gym.pro.Util;
+import view.Mensagem;
 
 /**
  *
@@ -23,7 +25,12 @@ public class FuncionarioBusiness {
     }
 
     public void cadastrar(Funcionario f) {
-        dao.cadastrar(f);
+        if(Util.validarCPF(Util.prepararCPF(f.getCpf()))){
+           projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarEndereco(f.getEndereco());
+           dao.cadastrar(f); 
+        }else{
+            Mensagem.exibirMensagem("CPF inválido!");
+        }
     }
 
     public void editar(Funcionario f) {

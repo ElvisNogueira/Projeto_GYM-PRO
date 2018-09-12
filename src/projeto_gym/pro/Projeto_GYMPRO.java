@@ -31,6 +31,7 @@ public class Projeto_GYMPRO {
         LoginJFrame login = new LoginJFrame();
         login.setVisible(true);
         new LoginControlador(login);
+          
         
     }
     

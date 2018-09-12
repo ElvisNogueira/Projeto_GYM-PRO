@@ -28,12 +28,15 @@ public class AlunoBusiness {
     }
 
     public Aluno cadastrar(Aluno aluno) {
-        Fachada f = Fachada.getInstance();
-        Aluno a = dao.cadastrar(aluno);
-        if(a!=null || a.getPlano().equals("Vitalício")){
-            Util.criarMensalidade(a);
+        if(Util.validarCPF(Util.prepararCPF(aluno.getCpf()))){
+            Fachada.getInstance().cadastrarEndereco(aluno.getEndereco());
+            Aluno a = dao.cadastrar(aluno);
+            if(a!=null || a.getPlano().equals("Vitalício"))
+                Util.criarMensalidade(a);
+            return a;
         }
-        return a;
+        aluno.setCpf("");
+        return aluno;
     }
 
     public Aluno editar(Aluno aluno) {

@@ -204,7 +204,7 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
         });
 
         try {
-            jFormattedTextFieldCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######-###")));
+            jFormattedTextFieldCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -304,6 +304,11 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
         jFormattedTextFieldCPF1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextFieldCPF1ActionPerformed(evt);
+            }
+        });
+        jFormattedTextFieldCPF1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldCPF1KeyReleased(evt);
             }
         });
 
@@ -914,7 +919,11 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
                     try {
                         a=projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarAluno(getAluno());
                         setAluno(a);
-                        Mensagem.exibirMensagem("Aluno cadastrado com sucesso!");
+                        if(a.getCpf().equals("")){
+                            jFormattedTextFieldCPF1.setBorder(new LineBorder(java.awt.Color.RED));
+                            Mensagem.exibirMensagem("CPF incorreto!");
+                        }else
+                            Mensagem.exibirMensagem("Aluno cadastrado com sucesso!");
                         preencherTabela(Fachada.getInstance().getAllByIdParcelas(a.getId()));
                     } catch (NullPointerException e) {
                         dataNasjDateChooser.setBorder(new LineBorder(Color.RED));
@@ -1024,6 +1033,13 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
     private void atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizarMouseClicked
         preencherTabela(Fachada.getInstance().getAllByIdParcelas(a.getId()));        
     }//GEN-LAST:event_atualizarMouseClicked
+
+    private void jFormattedTextFieldCPF1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPF1KeyReleased
+        if(Util.validarCPF(Util.prepararCPF(jFormattedTextFieldCPF1.getText()))){
+            jFormattedTextFieldCPF1.setBorder(new LineBorder(Color.GREEN));
+        }else
+            jFormattedTextFieldCPF1.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_jFormattedTextFieldCPF1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

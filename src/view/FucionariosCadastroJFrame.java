@@ -342,6 +342,11 @@ public class FucionariosCadastroJFrame extends javax.swing.JFrame {
                 jFormattedTextFieldCPF1ActionPerformed(evt);
             }
         });
+        jFormattedTextFieldCPF1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldCPF1KeyReleased(evt);
+            }
+        });
 
         jComboBoxStatus.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
@@ -1462,13 +1467,11 @@ public class FucionariosCadastroJFrame extends javax.swing.JFrame {
         boolean controleDeAcesso = Util.verificarCampos(jPanel1);
         boolean permAcesso = Util.verificarCampos(jPanel2);
         
-        
         try {
             if (cadastrar || controleDeAcesso || permAcesso) {
                 if (Fachada.getFuncionarioLogado().isCadFuncCadastrar()) {
                     if (f.getId() == 0) {
                         f = getFuncionario();
-                        projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarEndereco(f.getEndereco());
                         projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarFuncionario(f);
                         if (jCheckBoxPROFAV.isSelected()) {
                             projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarInstrutor(i);
@@ -1676,6 +1679,13 @@ public class FucionariosCadastroJFrame extends javax.swing.JFrame {
             jComboBoxFuncaoFuncionario.setEnabled(true);
         }
     }//GEN-LAST:event_jCheckBoxPROFAVActionPerformed
+
+    private void jFormattedTextFieldCPF1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPF1KeyReleased
+        if(Util.validarCPF(Util.prepararCPF(jFormattedTextFieldCPF1.getText()))){
+            jFormattedTextFieldCPF1.setBorder(new LineBorder(Color.GREEN));
+        }else
+            jFormattedTextFieldCPF1.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_jFormattedTextFieldCPF1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
