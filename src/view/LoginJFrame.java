@@ -15,11 +15,11 @@ import javax.swing.JTextField;
  */
 public class LoginJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrameLogin
-     */
+    private HomeJFrame home;
+    
     public LoginJFrame() {
         initComponents();
+        home = new HomeJFrame();
     }
 
     /**
@@ -80,6 +80,11 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jPasswordFieldSenha.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jPasswordFieldSenha.setToolTipText("Senha");
+        jPasswordFieldSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordFieldSenhaKeyReleased(evt);
+            }
+        });
 
         jTextFieldUsuario.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jTextFieldUsuario.setToolTipText("Login");
@@ -222,8 +227,23 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordFieldSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaKeyReleased
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            String usuario = getjTextFieldUsuario().getText();
+            String senha = getjPasswordFieldSenha().getText();
+
+            if (projeto_gym.pro.Projeto_GYMPRO.fachada.login(senha, usuario) != null) {
+                dispose();
+                home.show();
+            } else {
+                Mensagem.exibirMensagem("Senha ou login incorreto");
+                getjPasswordFieldSenha().setText(null);
+            }
+        }
+    }//GEN-LAST:event_jPasswordFieldSenhaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,5 +274,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         return jTextFieldUsuario;
     }
 
-    
+    public HomeJFrame getHome() {
+        return home;
+    }
+
 }

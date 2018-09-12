@@ -19,12 +19,10 @@ import view.Mensagem;
  */
 public class LoginControlador implements ActionListener{
     LoginJFrame login;
-    HomeJFrame home;
 
     public LoginControlador(LoginJFrame login) {
         this.login = login;
         login.getjButton1().addActionListener(this);
-        home = new HomeJFrame();
     }
 
     @Override
@@ -35,11 +33,11 @@ public class LoginControlador implements ActionListener{
         if(projeto_gym.pro.Projeto_GYMPRO.fachada.login(senha, usuario)!=null){
           
             login.dispose();
-            home.setVisible(true);
+            login.getHome().setVisible(true);
             
         }else{
             Mensagem.exibirMensagem("Senha ou login incorreto");
-            login.getjTextFieldUsuario().setText(null);
+            login.getjPasswordFieldSenha().setText(null);
         }
     }
     
