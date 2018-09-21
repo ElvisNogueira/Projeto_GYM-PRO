@@ -107,9 +107,10 @@ public class ControleFinanceiroDao {
         
         try {
             System.out.println("Data 1: "+d1);
+            System.out.println("Data 2: "+d2);
             statement = SQLUtil.prepareStatement(SQLUtil.SELECT_BY_PERIODO_CONTROLE_FINANCEIRO);
-            statement.setDate(1, d1);
-            statement.setDate(2, d2);
+            statement.setDate(1, d2);
+            statement.setDate(2, d1);
             result = statement.executeQuery();
             
             while (result.next()) {                

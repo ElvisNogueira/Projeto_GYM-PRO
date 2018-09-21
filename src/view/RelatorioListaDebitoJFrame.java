@@ -281,7 +281,7 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
             jDateChooserDataFim.setEnabled(false); 
             jDateChooserDataInicio.setEnabled(false);
             Calendar d1 = Calendar.getInstance();
-                Calendar d2 = Calendar.getInstance();
+            Calendar d2 = Calendar.getInstance();
             if(jComboBoxPeriodo.getSelectedItem().equals("Mensal")){
                 d2.add(Calendar.MONTH, -1);
 

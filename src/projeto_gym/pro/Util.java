@@ -85,9 +85,12 @@ public class Util {
     }
     
     public static Date converterCalendarToDate2(Calendar cal){
-        int dia = cal.get(GregorianCalendar.DAY_OF_MONTH);
-        int mes = cal.getInstance().get(GregorianCalendar.MONTH)+1;
-        int ano = cal.getInstance().get(GregorianCalendar.YEAR);
+//        int dia = cal.get(GregorianCalendar.DAY_OF_MONTH);
+//        int mes = cal.getInstance().get(GregorianCalendar.MONTH)+1;
+//        int ano = cal.getInstance().get(GregorianCalendar.YEAR);
+        int dia = cal.getTime().getDay();
+        int mes = cal.getTime().getMonth()+1;
+        int ano = cal.getTime().getYear()+1900;
         String c = "";
         if(mes>9)
             c =(dia+"/"+mes+"/"+ano);
@@ -95,7 +98,7 @@ public class Util {
             c =(dia+"/0"+mes+"/"+ano);
         if(dia<10)
             c = "0"+c;
-        
+        System.out.println(c);
         return getDate(c);
     }
     

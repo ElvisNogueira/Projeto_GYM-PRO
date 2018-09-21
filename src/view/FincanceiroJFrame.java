@@ -9,6 +9,7 @@ import projeto_gym.pro.Util;
 import fachada.Fachada;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JTable;
 import model.Avaliacao;
 import model.ControleFinanceiro;
@@ -27,6 +28,8 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         initComponents();
         financeiro = Fachada.getInstance().getAllControleFinanceiro();
         carregarTabelar(financeiro);
+        pUmjDateChooser.setEnabled(false);
+        pDoisjDateChooser.setEnabled(false);
 //        jFormattedTextFieldSaldo.setText(calcularSaldo(financeiro)+"");
     }
 
@@ -59,6 +62,8 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         pDoisjDateChooser = new com.toedter.calendar.JDateChooser();
         refreshjLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jComboBoxPeriodo = new javax.swing.JComboBox<>();
+        jLabelProcurar1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle Fincanceiro");
@@ -209,6 +214,17 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mensal", "Trimestral", "Semestral", "Anual", "Personalizado" }));
+        jComboBoxPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPeriodoActionPerformed(evt);
+            }
+        });
+
+        jLabelProcurar1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelProcurar1.setForeground(new java.awt.Color(45, 118, 232));
+        jLabelProcurar1.setText("Período");
+
         javax.swing.GroupLayout jPanelBackLayout = new javax.swing.GroupLayout(jPanelBack);
         jPanelBack.setLayout(jPanelBackLayout);
         jPanelBackLayout.setHorizontalGroup(
@@ -222,19 +238,24 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
                         .addGroup(jPanelBackLayout.createSequentialGroup()
                             .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanelBackLayout.createSequentialGroup()
-                                    .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelFiltrar, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelBackLayout.createSequentialGroup()
+                                    .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanelBackLayout.createSequentialGroup()
                                             .addComponent(jLabelPeriodo)
                                             .addGap(18, 18, 18)
                                             .addComponent(pUmjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(jLabelHa, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
-                                            .addComponent(pDoisjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jLabel1)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE))
+                                            .addComponent(pDoisjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabelFiltrar))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanelBackLayout.createSequentialGroup()
+                                            .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(24, 24, 24)
+                                            .addComponent(jLabel1))
+                                        .addComponent(jLabelProcurar1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE))
                                 .addGroup(jPanelBackLayout.createSequentialGroup()
                                     .addComponent(jLabelSaldo)
                                     .addGap(18, 18, 18)
@@ -256,7 +277,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
             jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBackLayout.createSequentialGroup()
                 .addComponent(jPanelBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBackLayout.createSequentialGroup()
                         .addComponent(jLabelFiltrar)
@@ -264,11 +285,14 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
                         .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pUmjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pDoisjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelPeriodo)
-                                .addComponent(jLabelHa))))
+                            .addComponent(jLabelPeriodo)
+                            .addComponent(jLabel1)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabelHa, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBackLayout.createSequentialGroup()
+                        .addComponent(jLabelProcurar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,7 +306,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelSaldo)
                     .addComponent(jFormattedTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -355,8 +379,9 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         if(pUmjDateChooser.getDate()==null && pDoisjDateChooser.getDate()==null)
             carregarTabelar(financeiro);
         else if(pUmjDateChooser.getDate()!=null && pDoisjDateChooser.getDate()!=null){
-            Date d1 = Util.converterCalendarToDate2(pUmjDateChooser.getCalendar());
-            Date d2 =  Util.converterCalendarToDate2(pDoisjDateChooser.getCalendar());           
+            Date d2 = Util.converterCalendarToDate2(pUmjDateChooser.getCalendar());
+            Date d1 =  Util.converterCalendarToDate2(pDoisjDateChooser.getCalendar());    
+            
             carregarTabelar(Fachada.getInstance().getBuscaControleFinanceiro(d1,d2));
         }else
             Mensagem.exibirMensagem("É preciso preencher os dois campos de datas!");
@@ -369,11 +394,47 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
         pDoisjDateChooser.setDate(null);
     }//GEN-LAST:event_refreshjLabelMouseClicked
 
+    private void jComboBoxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeriodoActionPerformed
+        if(jComboBoxPeriodo.getSelectedItem().equals("Personalizado")){
+            pDoisjDateChooser.setEnabled(true);
+            pUmjDateChooser.setEnabled(true);
+            pDoisjDateChooser.setDate(null);
+            pUmjDateChooser.setDate(null);
+        }else{
+            pDoisjDateChooser.setEnabled(false);
+            pUmjDateChooser.setEnabled(false);
+            Calendar d1 = Calendar.getInstance();
+            Calendar d2 = Calendar.getInstance();
+            if(jComboBoxPeriodo.getSelectedItem().equals("Mensal")){
+                d2.add(Calendar.MONTH, -1);
+
+                pDoisjDateChooser.setDate(d1.getTime());
+                pUmjDateChooser.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Trimestral")){
+                d2.add(Calendar.MONTH, -3);
+
+                pDoisjDateChooser.setDate(d1.getTime());
+                pUmjDateChooser.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Semestral")){
+                d2.add(Calendar.MONTH, -6);
+
+                pDoisjDateChooser.setDate(d1.getTime());
+                pUmjDateChooser.setDate(d2.getTime());
+            }else if(jComboBoxPeriodo.getSelectedItem().equals("Anual")){
+                d2.add(Calendar.MONTH, -12);
+
+                pDoisjDateChooser.setDate(d1.getTime());
+                pUmjDateChooser.setDate(d2.getTime());
+            }
+        }
+    }//GEN-LAST:event_jComboBoxPeriodoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovo;
+    private javax.swing.JComboBox<String> jComboBoxPeriodo;
     private javax.swing.JFormattedTextField jFormattedTextFieldSaldo;
     private javax.swing.JLabel jLabeConFinanceiro;
     private javax.swing.JLabel jLabel1;
@@ -381,6 +442,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFiltrar1;
     private javax.swing.JLabel jLabelHa;
     private javax.swing.JLabel jLabelPeriodo;
+    private javax.swing.JLabel jLabelProcurar1;
     private javax.swing.JLabel jLabelSaldo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBack;
