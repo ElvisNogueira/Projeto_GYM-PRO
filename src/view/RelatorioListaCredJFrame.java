@@ -38,6 +38,7 @@ public class RelatorioListaCredJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatorioListaCredJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().getAlunosCredito());
     }

@@ -22,6 +22,7 @@ public class FinanceiroLancarFaturaJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public FinanceiroLancarFaturaJFrame() {
+        Util.lookAndFeel();
         c = new ControleFinanceiro();
         initComponents();
         this.preencherComboBox();

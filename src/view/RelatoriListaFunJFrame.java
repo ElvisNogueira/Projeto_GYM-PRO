@@ -39,6 +39,7 @@ public class RelatoriListaFunJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatoriListaFunJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().getAllFuncionario());
     }

@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import model.Conta;
 import model.Exercicio;
 import model.ModeloTabela;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -22,6 +23,7 @@ public class HistoricoHomeJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public HistoricoHomeJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().getAllContas());
     }

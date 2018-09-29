@@ -31,7 +31,7 @@ public class AlunoBusiness {
         if(Util.validarCPF(Util.prepararCPF(aluno.getCpf()))){
             Fachada.getInstance().cadastrarEndereco(aluno.getEndereco());
             Aluno a = dao.cadastrar(aluno);
-            if(a!=null || a.getPlano().equals("Vitalício"))
+            if(a!=null || !a.getPlano().equals("Vitalício"))
                 Util.criarMensalidade(a);
             return a;
         }

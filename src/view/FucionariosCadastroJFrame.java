@@ -31,6 +31,7 @@ public class FucionariosCadastroJFrame extends javax.swing.JFrame {
     private Instrutor i;
 
     public FucionariosCadastroJFrame() {
+        Util.lookAndFeel();
         initComponents();
         f = new Funcionario();
         f.setEndereco(new Endereco());

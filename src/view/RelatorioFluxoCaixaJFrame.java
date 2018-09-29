@@ -37,6 +37,7 @@ public class RelatorioFluxoCaixaJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatorioFluxoCaixaJFrame() {
+        Util.lookAndFeel();
         initComponents();
         financeiro = Fachada.getInstance().getAllControleFinanceiro();
         carregarTabelar(financeiro);

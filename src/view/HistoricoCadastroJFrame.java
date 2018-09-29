@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import model.Conta;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -22,6 +23,7 @@ public class HistoricoCadastroJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public HistoricoCadastroJFrame() {
+        Util.lookAndFeel();
         c=new Conta();
         initComponents();
     }

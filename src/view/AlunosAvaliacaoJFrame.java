@@ -41,6 +41,7 @@ public class AlunosAvaliacaoJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public AlunosAvaliacaoJFrame(Aluno aluno, Instrutor instrutor, String objetivo) {
+        Util.lookAndFeel();
         this.objetivo = objetivo;
         this.aluno = aluno;
         this.instrutor = instrutor;

@@ -48,6 +48,7 @@ public class VisualizarFichaTreino extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public VisualizarFichaTreino() {
+        Util.lookAndFeel();
         initComponents();
         carregarTabelar();
     }

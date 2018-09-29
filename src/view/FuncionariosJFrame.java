@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import model.Aluno;
 import model.Funcionario;
 import model.ModeloTabela;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -23,6 +24,7 @@ public class FuncionariosJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public FuncionariosJFrame() {
+        Util.lookAndFeel();
         initComponents();
         carregarTabela(Fachada.getInstance().getAllFuncionario());
     }

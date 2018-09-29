@@ -36,6 +36,7 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public AlunosCadastroJFrame() {
+        Util.lookAndFeel();
         initComponents();
         a=new Aluno();
         a.setEndereco(new Endereco());
@@ -936,7 +937,10 @@ public class AlunosCadastroJFrame extends javax.swing.JFrame {
                 }else{
                     try {
                         a=projeto_gym.pro.Projeto_GYMPRO.fachada.editarAluno(getAluno());
-                        Mensagem.exibirMensagem("Aluno editado com sucesso!");
+                        if(a!=null)
+                            Mensagem.exibirMensagem("Aluno editado com sucesso!");
+                        else
+                            Mensagem.exibirMensagem("Aluno editado com erro!");   
                     }catch (NumberFormatException e) {
                         Mensagem.exibirMensagem("Alguns dados estão incorretos! Verifique se existem letras\n"
                                 + " em campos numéricos, ou se foi colocado ',' em vez de '.'!");

@@ -28,7 +28,7 @@ public class AlunosAvaliacaoHomeJFrame extends javax.swing.JFrame {
     public AlunosAvaliacaoHomeJFrame(Aluno a, String objetivo) {
         this.a=a;
         this.objetivo=objetivo;
-        
+        Util.lookAndFeel();
         initComponents();        
         carregarTabela(dados());
     }

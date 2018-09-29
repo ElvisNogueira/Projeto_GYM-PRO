@@ -57,7 +57,7 @@ import model.ModeloTabela;
  * @author Insinuante
  */
 public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
-
+    
     private Aluno aluno;
     private Instrutor instrutor;
     private FichaDeTreino ficha;
@@ -75,11 +75,20 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
     
     
     public AlunosFichaExercicioJFrame(Aluno aluno) {
+        Util.lookAndFeel();
         this.aluno = aluno;
         ficha = new FichaDeTreino();
         fichaExer = new FichaExercicio();
         ficha.setExercicios(new ArrayList<>());
-        
+        try {
+                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Metal".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (UnsupportedLookAndFeelException e) {} catch (ClassNotFoundException e) {
+            } catch (InstantiationException e) {} catch (IllegalAccessException e) {}
         initComponents();
          jTextFieldNomeProf.setText(Fachada.getInstance().getByFuncionario_IdInstrutor(Fachada.getFuncionarioLogado().getId()).getFuncionario().getNome());
         preencherComboBox();
@@ -1978,15 +1987,7 @@ public class AlunosFichaExercicioJFrame extends javax.swing.JFrame {
             
             String l = file.getAbsolutePath();
             
-            try {
-                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if ("Metal".equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-            } catch (UnsupportedLookAndFeelException e) {} catch (ClassNotFoundException e) {
-            } catch (InstantiationException e) {} catch (IllegalAccessException e) {}
+            
             
             return l;
         } catch (Exception x) {}

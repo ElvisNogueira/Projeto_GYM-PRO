@@ -25,6 +25,7 @@ public class FincanceiroJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public FincanceiroJFrame() {
+        Util.lookAndFeel();
         initComponents();
         financeiro = Fachada.getInstance().getAllControleFinanceiro();
         carregarTabelar(financeiro);

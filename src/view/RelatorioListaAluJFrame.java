@@ -37,6 +37,7 @@ public class RelatorioListaAluJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatorioListaAluJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().getAllAluno());
         

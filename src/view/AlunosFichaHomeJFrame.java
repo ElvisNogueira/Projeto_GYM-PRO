@@ -23,6 +23,7 @@ public class AlunosFichaHomeJFrame extends javax.swing.JFrame {
     
     
     public AlunosFichaHomeJFrame(Aluno aluno) {
+        Util.lookAndFeel();
         this.aluno = aluno;
         initComponents();
         preencherTabela(Fachada.getInstance().getByAlunoFichaTreino(aluno.getId()));

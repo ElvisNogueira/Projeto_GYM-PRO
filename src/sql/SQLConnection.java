@@ -17,37 +17,34 @@ import view.Mensagem;
  * @author Elvis
  */
 public class SQLConnection {
-public static String BD__POSTGRESS = "POSTGRES";
-    
+
+    public static String BD__POSTGRESS = "POSTGRES";
+
     private static Connection conexao = null;
-    
+
     private SQLConnection() {
-        
+
     }
-    public static Connection getConexao(String bd){
+
+    public static Connection getConexao(String bd) {
         try {
             if (conexao == null) {
-                switch (bd) {
-                    case "POSTGRES":
-                        conexao = DriverManager.getConnection(
-                                SQLUtil.URL_POSTGRES,
-                                SQLUtil.USUARIO_POSTGRES,
-                                SQLUtil.SENHA_POSTGRES 
-                       );
-                        break;
-                    default:
-                        break;
-                }
-                
+
+                conexao = DriverManager.getConnection(
+                        SQLUtil.URL_POSTGRES,
+                        SQLUtil.USUARIO_POSTGRES,
+                        SQLUtil.SENHA_POSTGRES
+                );
+
             }
         } catch (SQLException ex) {
-             
-            if("postgres".equals(SQLUtil.SENHA_POSTGRES)){
-                SQLUtil.SENHA_POSTGRES= "123";
+
+            if ("postgres".equals(SQLUtil.SENHA_POSTGRES)) {
+                SQLUtil.SENHA_POSTGRES = "123";
                 getConexao("POSTGRES");
+            } else {
+                Mensagem.exibirMensagem("Problema na Conexão com o BD\n" + ex.getMessage());
             }
-            else
-                Mensagem.exibirMensagem("Problema na Conexão com o BD\n"+ex.getMessage());
         }
         return conexao;
     }

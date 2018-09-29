@@ -25,6 +25,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import model.ModeloTabela;
 import model.Parcelas;
 
@@ -38,6 +40,7 @@ public class RelatorioListaDebitoJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatorioListaDebitoJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().getParcelasVencidas());
     }

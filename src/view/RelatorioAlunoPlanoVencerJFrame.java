@@ -39,6 +39,7 @@ public class RelatorioAlunoPlanoVencerJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public RelatorioAlunoPlanoVencerJFrame() {
+        Util.lookAndFeel();
         initComponents();
         preencherTabela(Fachada.getInstance().AlunosPlanosVencer());
     }

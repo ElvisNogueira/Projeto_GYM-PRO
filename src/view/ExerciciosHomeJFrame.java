@@ -24,6 +24,7 @@ public class ExerciciosHomeJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public ExerciciosHomeJFrame() {
+        Util.lookAndFeel();
         initComponents();
         carregarTabela(Fachada.getInstance().getExercicioAll());
     }

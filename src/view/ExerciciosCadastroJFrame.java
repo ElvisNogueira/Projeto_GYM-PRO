@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import model.Exercicio;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ExerciciosCadastroJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public ExerciciosCadastroJFrame() {
+        Util.lookAndFeel();
         e=new Exercicio();
         initComponents();
     }

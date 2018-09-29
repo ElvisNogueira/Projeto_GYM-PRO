@@ -21,6 +21,7 @@ import model.ModeloTabela;
 public class AlunosHomeJFrame extends javax.swing.JFrame {
     Fachada fachada;
     public AlunosHomeJFrame() {
+        Util.lookAndFeel();
         fachada = Fachada.getInstance();
         initComponents();
         carregarTabela(fachada.getAllAluno());            

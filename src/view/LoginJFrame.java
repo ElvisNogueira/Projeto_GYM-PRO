@@ -8,6 +8,7 @@ package view;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -18,6 +19,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private HomeJFrame home;
     
     public LoginJFrame() {
+        Util.lookAndFeel();
         initComponents();
         home = new HomeJFrame();
     }
@@ -190,7 +192,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addComponent(jLabeAcademia1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelIcon)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

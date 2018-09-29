@@ -9,6 +9,7 @@ import java.awt.Color;
 import projeto_gym.pro.Projeto_GYMPRO;
 import projeto_gym.pro.Util;
 import java.sql.Date;
+import java.util.Calendar;
 import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.ControleFinanceiro;
@@ -27,6 +28,7 @@ public class AlunosLancarFaturaJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrameLogin
      */
     public AlunosLancarFaturaJFrame(Pagamento p, Aluno aluno) {
+        Util.lookAndFeel();
         this.p = p;
         c = new ControleFinanceiro();
         this.aluno = aluno;
@@ -375,7 +377,9 @@ public class AlunosLancarFaturaJFrame extends javax.swing.JFrame {
         return p;
     }
     
-        public Pagamento set(){
+    public Pagamento set(){
+        Calendar d = Calendar.getInstance();
+        dataPgjDateChooser.setDate(d.getTime());
         jTextFieldUsuario.setText(p.getAluno().getNome());
         dataVenjDateChooser.setDate(p.getDataVenc());
         jComboBoxServico.setSelectedItem(p.getServico());
@@ -383,6 +387,15 @@ public class AlunosLancarFaturaJFrame extends javax.swing.JFrame {
         jTextFieldValor.setText(p.getValor()+"");
                 
         return p;
+    }
+    
+    public void lancarAuto(){
+        p = get();
+            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarPagamento(p);
+            projeto_gym.pro.Projeto_GYMPRO.fachada.cadastrarControleFinanceiro(c);
+            if(jComboBoxServico.getSelectedItem().equals("Mensalidade"))
+                projeto_gym.pro.Projeto_GYMPRO.fachada.pagarParcela(aluno, p.getDataVenc());
+            this.dispose();
     }
 
 }

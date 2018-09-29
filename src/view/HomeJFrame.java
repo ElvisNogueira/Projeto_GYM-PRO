@@ -10,6 +10,7 @@ import controller.LoginControlador;
 import fachada.Fachada;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import projeto_gym.pro.Util;
 
 /**
  *
@@ -21,6 +22,7 @@ public class HomeJFrame extends javax.swing.JFrame {
      * Creates new form JFrameHome
      */
     public HomeJFrame() {
+        Util.lookAndFeel();
         initComponents();
     }
 

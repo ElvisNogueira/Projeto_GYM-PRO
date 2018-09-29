@@ -25,7 +25,7 @@ public class Projeto_GYMPRO {
     public static Fachada fachada = Fachada.getInstance();
     
     public static void main(String[] args) {
-        Calendar c = Calendar.getInstance();
+//        Calendar c = Calendar.getInstance();
         Fachada.getInstance().atualizarParcelasAtrasadas();
         projeto_gym.pro.Util.atualizarMensalidades();
         LoginJFrame login = new LoginJFrame();

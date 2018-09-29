@@ -21,12 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import model.Aluno;
 import model.Conta;
 import model.FichaExercicio;
+import model.Pagamento;
 import model.Parcelas;
+import view.AlunosLancarFaturaJFrame;
 import view.Mensagem;
 
 /**
@@ -142,21 +146,37 @@ public class Util {
             numPrcelas=12;
         
         for(int i=0;i<numPrcelas;i++){
-           p.setData_de_Vencimento(converterCalendarToDate(cal));
-           if((a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal"))){
-               a.setVencimento_mens(cal.get(cal.DAY_OF_MONTH));
-           }
-           Fachada.getInstance().editarAluno(a);
-           p.setAlunos(a);
-           p.setStatus("Em aberto");
-           p.setValor(a.getValorPlano()/numPrcelas);      
-           Conta con = Fachada.getInstance().getByNomeConta("Mensalidade");
-           p.setConta(con);
-           
-           Fachada.getInstance().cadastrarParcelas(p);
-           if(!(a.getPlano().equals("Diário") || a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal")))
-               cal.add(Calendar.MONTH, 1);
-           
+            p.setData_de_Vencimento(converterCalendarToDate(cal));
+            if((a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal"))){
+                a.setVencimento_mens(cal.get(cal.DAY_OF_MONTH));
+            }
+            Fachada.getInstance().editarAluno(a);
+            p.setAlunos(a);
+            
+            p.setValor(a.getValorPlano()/numPrcelas);      
+            Conta con = Fachada.getInstance().getByNomeConta("Mensalidade");
+            p.setConta(con);
+            if((a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal")))
+                p.setStatus("Em aberto");
+            else
+                p.setStatus("Pago");
+            
+            Fachada.getInstance().cadastrarParcelas(p);
+            if(!(a.getPlano().equals("Diário") || a.getPlano().equals("Semanal") || a.getPlano().equals("Quinzenal"))){
+                cal.add(Calendar.MONTH, 1);
+                Pagamento pag = new Pagamento();
+                pag.setAluno(a);
+                pag.setDataVenc(p.getData_de_Vencimento()); 
+                
+                pag.setFuncionario(Fachada.getFuncionarioLogado());
+                pag.setServico(p.getConta().getDescricao());
+                pag.setValor(p.getValor());
+                
+                AlunosLancarFaturaJFrame tela = new AlunosLancarFaturaJFrame(pag, a);
+                tela.set();
+                tela.lancarAuto();
+                System.out.println("projeto_gym.pro.Util.criarMensalidade()");
+            }
         }
          
     }
@@ -292,5 +312,17 @@ public class Util {
                 return(false);
             }
         }
+    
+    public static void lookAndFeel(){
+        try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Metal".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+        } catch (UnsupportedLookAndFeelException e) {} catch (ClassNotFoundException e) {
+        } catch (InstantiationException e) {} catch (IllegalAccessException e) {}
+    }
          
 }

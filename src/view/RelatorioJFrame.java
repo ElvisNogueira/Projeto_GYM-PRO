@@ -5,6 +5,8 @@
  */
 package view;
 
+import projeto_gym.pro.Util;
+
 /**
  *
  * @author Williany
@@ -15,6 +17,7 @@ public class RelatorioJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public RelatorioJFrame() {
+        Util.lookAndFeel();
         initComponents();
     }
 

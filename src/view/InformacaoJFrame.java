@@ -5,6 +5,8 @@
  */
 package view;
 
+import projeto_gym.pro.Util;
+
 /**
  *
  * @author Insinuante
@@ -15,6 +17,7 @@ public class InformacaoJFrame extends javax.swing.JFrame {
      * Creates new form AlunosJFrame
      */
     public InformacaoJFrame() {
+        Util.lookAndFeel();
         initComponents();
     }
 
